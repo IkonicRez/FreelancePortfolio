@@ -1,10 +1,14 @@
 :root {
     /* COLORS */
         /* BACKGROUND COLORS */
-        --menu-bkgcolor: black;
+        --background-color: #040f0f;
+        /* --menu-bkgcolor: #12191a; */
         /* TEXT COLORS */
-        --main-text-color: rgb(255, 0, 0);
+        --light-text-color: #bef1f5;
+        --main-text-color: #9BE0E4;
+        --alt-text-color: #85bdbf;
         /* SHADOW COLORS */
+        --grey-shadow: #57737a;
         --shadowcolor: gold;
     /* TEXT EFFECTS */
         --base-textshadow: -1px 1px 1px var(--shadowcolor),
@@ -19,4 +23,14 @@
 
     /* TRANSFORM */
 
+}
+
+/* @font-face {
+    font-family: 'Arvo';
+    src: url('./assets/fonts/Arvo/Arvo-Regular.ttf');
+} */
+
+@font-face {
+    font-family: 'Besley';
+    src: url('./assets/fonts/Besley/Besley-VariableFont_wght.ttf');
 }
