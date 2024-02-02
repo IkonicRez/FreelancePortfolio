@@ -1,10 +1,10 @@
 import React from 'react'
 import './team.css'
-
+import { WindowFrame } from '../../Components'
 export default function Team() {
     return (
         <div>
-            <div class="window-border" style={{height: "400px", width: "400px"}}></div>
+            <WindowFrame title="Random Title" pos={{x: window.innerWidth/2, y: window.innerHeight / 2}}/>
         </div>
     )
 }

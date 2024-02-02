@@ -6,7 +6,7 @@ import MainLayout from '../Pages/MainLayout';
 import Home from '../Pages/Home';
 import Team from '../Pages/Team';
 import Showcase from '../Pages/Showcase';
-import GenericNotFound from '../Components/ErrorHandling/GenericNotFound';
+import { GenericNotFound } from '../Components';
 
 function App() {
   return (
