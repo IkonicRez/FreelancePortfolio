@@ -1,6 +1,7 @@
-html {
+body {
   font-family: Besley;
 }
+
 .App {
   text-align: center;
 }
@@ -16,17 +17,29 @@ html {
   }
 }
 
-.App-header {
+.App-body {
   background-color: var(--background-color);
+  background-image: url('../../public/images/background.webp');
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: var(--main-text-color);
 }
 
+#App-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#header-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .App-link {
   color: #61dafb;
 }
