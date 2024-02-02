@@ -24,7 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
-  color: var(--main-text-color);
+  color: var(--light-text-color);
 }
 
 #App-header {
@@ -33,10 +33,23 @@ body {
   justify-content: space-between;
 }
 
+h1 {
+  font-size: 2.25rem;
+  line-height: 0;
+  margin-left: .6vw;
+}
+
 #header-nav {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  padding-top: .5vw;
+}
+
+#header-nav * {
+  text-decoration: none;
+  margin-right: .8vw;
+  color: var(--alt-text-color)
 }
 
 .App-link {
