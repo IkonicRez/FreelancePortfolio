@@ -20,6 +20,7 @@ body {
 .App-body {
   background-color: var(--background-color);
   background-image: url('../assets/images/background.webp');
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
