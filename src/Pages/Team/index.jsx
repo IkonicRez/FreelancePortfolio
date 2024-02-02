@@ -1,9 +1,10 @@
 import React from 'react'
+import './team.css'
 
 export default function Team() {
     return (
         <div>
-            <h1>Team</h1>
+            <div class="window-border" style={{height: "400px", width: "400px"}}></div>
         </div>
     )
 }
