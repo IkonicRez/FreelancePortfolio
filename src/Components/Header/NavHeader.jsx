@@ -6,8 +6,8 @@ const NavHeader = () => {
       <header id='App-header'>
         <h1>IRFreelance</h1>
         <nav id='header-nav'>
-            <a href="">Team</a>
-            <a href="">Showcase</a>
+            <a href="/team">Team</a>
+            <a href="/showcase">Showcase</a>
         </nav>
       </header>
     </div>
