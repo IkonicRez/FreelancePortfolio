@@ -4,7 +4,9 @@ const NavHeader = () => {
   return (
     <div>
       <header id='App-header'>
-        <h1>IRFreelance</h1>
+        <a href="/">
+          <h1>IRFreelance</h1>
+        </a>
         <nav id='header-nav'>
             <a href="/team">Team</a>
             <a href="/showcase">Showcase</a>

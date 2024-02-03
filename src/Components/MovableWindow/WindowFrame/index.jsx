@@ -70,7 +70,7 @@ const WindowFrame = (props) => {
         className={`window $bMinimized ? 'minimized' : ''}`}
         style={{ position: "absolute", top: `${bMinimized ? minimizedPos.y : pos.y}px`, left: `${bMinimized ? minimizedPos.x : pos.x}px`}}
     >
-        <div className="window-border" style={{height: "150px", width: "150px"}}>
+        <div className="window-border" style={props.size ? props.size : {height: "150px", width: "150px"}}>
             <div className="window-header" 
                 id={props.title}
                 onMouseDown={handleMouseDown} 
