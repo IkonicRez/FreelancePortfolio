@@ -1,8 +1,0 @@
-.window-header {
-    margin-top: -1.5svw;
-    margin-left: -1.5svw;
-    max-height: 1.5svw;
-    width: calc(100% + 3svw);
-    display: flex;
-    justify-content: space-between;
-}

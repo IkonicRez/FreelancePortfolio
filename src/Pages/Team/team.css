@@ -1,6 +1,0 @@
-.window-border {
-    border: 1.5svw solid rgb(0, 0, 0);
-    background-color: #040F0F;
-    border-image: url('../../Components/WindowFrame/window_border.png') calc(128/3) round;
-    box-shadow: 0 0 1px 0 rgb(145, 202, 189), 0 0 8px 0 rgba(178, 230, 231, 0.19);
-}

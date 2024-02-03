@@ -1,5 +1,7 @@
 body {
   font-family: Besley;
+  max-width: 100svw;
+  min-width: 100svw;
 }
 
 .App {
