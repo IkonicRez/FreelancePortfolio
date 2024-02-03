@@ -33,6 +33,7 @@
 @font-face {
     font-family: 'Besley';
     src: url('./assets/fonts/Besley/Besley-VariableFont_wght.ttf');
+    font-display: swap;
 }
 
 *.unselectable {

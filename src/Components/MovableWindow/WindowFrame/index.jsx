@@ -63,7 +63,7 @@ const WindowFrame = (props) => {
             >
                 <span className="unselectable">{props.title}</span>
                 <section>
-                    <button className="unselectable" onClick={handleMinimize}></button>
+                    <button className="unselectable" aria-label={"Minimize " + props.title} onClick={handleMinimize}></button>
                 </section>
             </div>
             {props.children}

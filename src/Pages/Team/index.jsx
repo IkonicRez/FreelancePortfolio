@@ -10,7 +10,6 @@ export default function Team() {
         // done: apply ratio to x, y and gap to ensure scaling
         // todo: FUNCTION STILL NEEDS A GOOD WAY TO RERUN ON RESCALE
         var winSize = {x: normalize(window.innerWidth, 1000, 0), y: normalize(window.innerHeight, 800, 0)}
-        console.log(winSize)
         x = x * winSize.x
         y = y * winSize.y
         return {
