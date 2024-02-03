@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import "./window_frame.css"
 import { useContext } from "react";
-import { PositionContext } from "../WindowManager/context/PositionContext";
+import { MousePositionContext } from "../WindowManager/context/MousePositionContext";
+import { MinimizedWindowContext } from '../WindowManager/context/WindowContext';
 
 const WindowFrame = (props) => {
     // POSITION CONTEXT => Gives access to mouse coordinates, updates on mouse movement
-    const mousePos = useContext(PositionContext);
+    const mousePos = useContext(MousePositionContext);
+    const { minimizedWindows, setMinimizedWindows } = useContext(MinimizedWindowContext);
     const [bDragging, setDragging] = useState(false);
     const [bMinimized, setMinimized] = useState(false);
+    const [minimizedPos, setMinimizedPos] = useState({ x: 0, y: 0});
     const [prevPos, setPrevPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [pos, setPos] = useState({ x: props.pos.x, y: props.pos.y});
 
@@ -15,7 +18,7 @@ const WindowFrame = (props) => {
 
     const handleMouseDown = (e) => {
         e.preventDefault();
-        // NEEDS WORK: Proposed change, use another context provider to increment an index constantly starting from 10 to give room for other elements and ending at 2,000,000 before looping. 
+        // NEEDS WORK/PROPOSED CHANGE, use another context provider to increment an index constantly starting from 10 to give room for other elements and ending at 2,000,000 before looping. 
         // prevents int overflow and saves updating an array/object with window zindexs
         // Context/Provider should originate in WindowManager and might require it to pass a function into children and return the data. 
         // That way when a window is clicked it can run the provided function, incrementing the index and then setting it on the target
@@ -42,6 +45,18 @@ const WindowFrame = (props) => {
     
     const handleMinimize = () => {
         setMinimized(!bMinimized)
+        if (!bMinimized) {
+            setMinimizedWindows(minimizedWindows + 1)
+            console.log(element.getBoundingClientRect().width)
+            setMinimizedPos({
+                x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
+                y: window.innerHeight - (element.getBoundingClientRect().height)
+            })
+        } else {
+            setMinimizedWindows(minimizedWindows - 1)
+        }
+        
+        console.log(minimizedWindows)
     }
 
     useEffect(()=> {
@@ -53,7 +68,7 @@ const WindowFrame = (props) => {
     return (
     <div
         className={`window $bMinimized ? 'minimized' : ''}`}
-        style={{ position: "absolute", top: `${pos.y}px`, left: `${pos.x}px`}}
+        style={{ position: "absolute", top: `${bMinimized ? minimizedPos.y : pos.y}px`, left: `${bMinimized ? minimizedPos.x : pos.x}px`}}
     >
         <div className="window-border" style={{height: "150px", width: "150px"}}>
             <div className="window-header" 
@@ -63,7 +78,7 @@ const WindowFrame = (props) => {
             >
                 <span className="unselectable">{props.title}</span>
                 <section>
-                    <button className="unselectable" aria-label={"Minimize " + props.title} onClick={handleMinimize}></button>
+                    <button aria-label={"Minimize " + props.title} onClick={handleMinimize}></button>
                 </section>
             </div>
             {props.children}

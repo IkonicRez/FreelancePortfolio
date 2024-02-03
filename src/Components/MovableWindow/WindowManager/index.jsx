@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { PositionContext } from "./context/PositionContext";
+import { MousePositionContext } from "./context/MousePositionContext";
+import { MinimizedWindowContext } from "./context/WindowContext";
 
 export default function WindowManager(props) {
 
     const [mousePos, setMousePos] = useState(props.default ? props.default : {x: 0, y: 0} )
+    const [minimizedWindows, setMinimizedWindows] = useState(0)
 
     const handleMousePosition = (e) => {
         e.preventDefault();
@@ -17,10 +19,12 @@ export default function WindowManager(props) {
             className={"movable-window-area" + props.className ? props.className : ""} 
             id={props.id ? props.id : "default_movable_area"}
             onMouseMove={handleMousePosition}
-        >
-            <PositionContext.Provider value={mousePos}>
-                {props.children}
-            </PositionContext.Provider>
+        >   
+            <MinimizedWindowContext.Provider value={{minimizedWindows, setMinimizedWindows}}>
+                <MousePositionContext.Provider value={mousePos}>
+                    {props.children}
+                </MousePositionContext.Provider>
+            </MinimizedWindowContext.Provider>
         </section>
     );
 

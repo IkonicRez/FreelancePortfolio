@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { WindowFrame } from '../../Components'
 
 const normalize = (val, max, min) => { return (val - min) / (max - min) }
@@ -16,6 +16,17 @@ export default function Team() {
             x: x + (column * (gap * winSize.x)),
             y: y + (row * (gap * winSize.y))
         }
+    }
+
+    useEffect(()=>{
+        window.addEventListener('resize', handleResize)
+        return function() {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
+    const handleResize = () => {
+        // TRIGGER RESIZING
     }
 
     return (
