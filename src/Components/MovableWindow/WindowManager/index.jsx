@@ -8,8 +8,11 @@ export default function WindowManager(props) {
     const [minimizedWindows, setMinimizedWindows] = useState(0)
     const [windowStates, setWindowStates] = useState(
         {
-            windows: ["", "", "", ""],
-            minimized: [""]
+            id: "",
+            pos: {x: 0, y:0},
+            minimized: false,
+            minimizedIndex: 0,
+            focus: false
         }
     )
 
