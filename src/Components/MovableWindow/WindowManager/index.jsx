@@ -6,6 +6,12 @@ export default function WindowManager(props) {
 
     const [mousePos, setMousePos] = useState(props.default ? props.default : {x: 0, y: 0} )
     const [minimizedWindows, setMinimizedWindows] = useState(0)
+    const [windowStates, setWindowStates] = useState(
+        {
+            windows: ["", "", "", ""],
+            minimized: [""]
+        }
+    )
 
     const handleMousePosition = (e) => {
         e.preventDefault();
