@@ -31,16 +31,28 @@ export default function Team() {
 
     return (
         <div>
-            <WindowFrame title="Random Title" pos={getPosition(25, 250, 0, 0, 250)}>
+            <WindowFrame 
+                title="Random Title" 
+                pos={getPosition(25, 250, 0, 0, 250)}
+            >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
-            <WindowFrame title="Test" pos={getPosition(25, 250, 0, 1, 250)}>
+            <WindowFrame 
+                title="Test" 
+                pos={getPosition(25, 250, 0, 1, 250)}
+            >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
-            <WindowFrame title="Showcase" pos={getPosition(25, 250, 0, 2, 250)}>
+            <WindowFrame 
+                title="Showcase" 
+                pos={getPosition(25, 250, 0, 2, 250)}
+            >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
-            <WindowFrame title="Showcase" pos={getPosition(25, 250, 0, 3, 250)}>
+            <WindowFrame 
+                title="Showcase 1" 
+                pos={getPosition(25, 250, 0, 3, 250)}
+            >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
         </div>

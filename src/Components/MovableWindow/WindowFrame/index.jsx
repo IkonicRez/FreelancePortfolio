@@ -13,9 +13,18 @@ const WindowFrame = (props) => {
     const [minimizedPos, setMinimizedPos] = useState({ x: 0, y: 0});
     const [prevPos, setPrevPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [pos, setPos] = useState({ x: props.pos.x, y: props.pos.y});
-
+    const [displayPosition, setDisplayPosition] = useState({ x: props.pos.x, y: props.pos.y})
+    
     var element = document.getElementById(props.title);
-
+    
+    const setElementPosition = (x, y) => {
+        let _x = (window.innerWidth / 100) * 3
+        return {
+            x: ((x - (props.size.width / 2)) - _x),
+            y: ((y - (props.size.height / 2)) - _x)
+        }
+    }
+    
     const handleMouseDown = (e) => {
         e.preventDefault();
         // NEEDS WORK/PROPOSED CHANGE, use another context provider to increment an index constantly starting from 10 to give room for other elements and ending at 2,000,000 before looping. 
@@ -36,11 +45,12 @@ const WindowFrame = (props) => {
     }
 
     const handleMouseMove = () => {
-        setPos({ 
-            x: (pos.x - (prevPos.x - mousePos.x)), 
+        setPos({
+            x: (pos.x - (prevPos.x - mousePos.x)),
             y: (pos.y - (prevPos.y - mousePos.y)) 
         })
         setPrevPos({ x: mousePos.x, y: mousePos.y})
+        // setDisplayPosition(setElementPosition(pos.x, pos.y))
     }
     
     const handleMinimize = () => {
@@ -67,7 +77,7 @@ const WindowFrame = (props) => {
 
     return (
     <div
-        className={`window $bMinimized ? 'minimized' : ''}`}
+        className={`window ${bMinimized ? 'minimized' : ''}`}
         style={{ position: "absolute", top: `${bMinimized ? minimizedPos.y : pos.y}px`, left: `${bMinimized ? minimizedPos.x : pos.x}px`}}
     >
         <div className="window-border" style={props.size ? props.size : {height: "150px", width: "150px"}}>
