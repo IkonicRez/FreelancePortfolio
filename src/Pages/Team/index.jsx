@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { WindowFrame } from '../../Components'
 
 const normalize = (val, max, min) => { return (val - min) / (max - min) }
@@ -6,10 +6,10 @@ const normalize = (val, max, min) => { return (val - min) / (max - min) }
 export default function Team() {
 
     const getPosition = (x, y, row, column, gap) => {
-        // done: ratio of window size to 1000x800 (1.2)
+        // done: ratio of window size to 1920x1080 (1.2)
         // done: apply ratio to x, y and gap to ensure scaling
         // todo: FUNCTION STILL NEEDS A GOOD WAY TO RERUN ON RESCALE
-        var winSize = {x: normalize(window.innerWidth, 1000, 0), y: normalize(window.innerHeight, 800, 0)}
+        var winSize = {x: normalize(window.innerWidth, 1920, 0), y: normalize(window.innerHeight, 1080, 0)}
         x = x * winSize.x
         y = y * winSize.y
         return {
@@ -18,40 +18,29 @@ export default function Team() {
         }
     }
 
-    useEffect(()=>{
-        window.addEventListener('resize', handleResize)
-        return function() {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
-
-    const handleResize = () => {
-        // TRIGGER RESIZING
-    }
-
     return (
         <div>
             <WindowFrame 
                 title="Random Title" 
-                pos={getPosition(25, 250, 0, 0, 250)}
+                pos={getPosition(25, 300, 0, 0, 250)}
             >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
             <WindowFrame 
                 title="Test" 
-                pos={getPosition(25, 250, 0, 1, 250)}
+                pos={getPosition(25, 300, 0, 1, 250)}
             >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
             <WindowFrame 
                 title="Showcase" 
-                pos={getPosition(25, 250, 0, 2, 250)}
+                pos={getPosition(25, 300, 0, 2, 250)}
             >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
             <WindowFrame 
                 title="Showcase 1" 
-                pos={getPosition(25, 250, 0, 3, 250)}
+                pos={getPosition(25, 300, 0, 3, 250)}
             >
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>

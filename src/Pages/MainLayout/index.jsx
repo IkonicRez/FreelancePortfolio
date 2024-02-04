@@ -1,14 +1,16 @@
 import React from 'react'
-import { NavHeader } from '../../Components'
-import WindowManager from '../../Components/MovableWindow/WindowManager'
-import { Outlet } from 'react-router-dom'
+import { NavHeader, WindowManager } from '../../Components'
+import { Outlet, Link } from 'react-router-dom'
 
 
 export default function MainLayout() {
   return (
     <div className="App">
       <WindowManager className="App-body">
-        <NavHeader/>
+        <NavHeader title="IRFreelance">
+          <Link to="/team">Team</Link>
+          <Link to="/showcase">Showcase</Link>
+        </NavHeader>
         <Outlet/>
       </WindowManager>
     </div>

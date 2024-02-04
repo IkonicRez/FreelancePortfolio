@@ -1,3 +1,7 @@
+html {
+  overflow: hidden;
+}
+
 body {
   font-family: Besley;
   max-width: 100svw;
@@ -8,24 +12,12 @@ body {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-body {
   background-color: var(--background-color);
   background-image: url('../assets/images/background.webp');
   background-size: cover;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: var(--light-text-color);
 }
@@ -35,6 +27,12 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
+
+a {
+  text-decoration: none;
+  color: var(--light-text-color);
+}
+
 
 h1 {
   font-size: 2.25rem;
@@ -57,13 +55,4 @@ h1 {
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

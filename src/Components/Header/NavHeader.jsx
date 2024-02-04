@@ -1,16 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const NavHeader = () => {
+const NavHeader = (props) => {
   return (
     <div>
       <header id='App-header'>
         <Link to="/">
-          <h1>IRFreelance</h1>
+          <h1>{props.title}</h1>
         </Link>
         <nav id='header-nav'>
-            <Link to="/team">Team</Link>
-            <Link to="/showcase">Showcase</Link>
+          {props.children}
         </nav>
       </header>
     </div>

@@ -8,14 +8,15 @@ import Team from '../Pages/Team';
 import Showcase from '../Pages/Showcase';
 import { GenericNotFound } from '../Components';
 
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<MainLayout/>}>
-          <Route index element={<Home/>}/>
-          <Route path='/team' element={<Team/>}/>
-          <Route path='/showcase' element={<Showcase/>}/>
+          <Route index element={<Home/>} errorElement={<GenericNotFound/>}/>
+          <Route path='/team' element={<Team/>} errorElement={<GenericNotFound/>}/>
+          <Route path='/showcase' element={<Showcase/>} errorElement={<GenericNotFound/>}/>
           <Route component={GenericNotFound} />
         </Route>
       </Routes>
