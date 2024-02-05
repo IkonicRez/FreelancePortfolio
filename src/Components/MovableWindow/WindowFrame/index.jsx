@@ -7,24 +7,24 @@ const WindowFrame = (props) => {
 
     const {useMouseTracker, windows, dispatchCallbackEvent} = useContext(WindowManagerContext);
     const [bDragging, setDragging] = useState(false);
-    const [bInitialized, setInitialized] = useState(false)
+    const [bInitialized, setInitialized] = useState(false);
     const stateValid = windows[props.title] !== undefined
+    var element = document.getElementById(props.title);
 
     const mousePosCallback = (mousePos, prevPos) => {
         if (bDragging) {
-            // SHOULD PROBABLY BE USELAYOUTEFFECT()
             dispatchEvent({
                 type: "change",
                 pos: {
                     x: (windows[props.title].pos.x - (prevPos.x - mousePos.x)),
                     y: (windows[props.title].pos.y - (prevPos.y - mousePos.y)) 
-                }
+                },
+                moved: true
             })
         }
     };
 
     useMouseTracker(mousePosCallback)
-    var element = document.getElementById(props.title);
 
     const dispatchEvent = useCallback((action) => {
         let type = action.type
@@ -47,9 +47,7 @@ const WindowFrame = (props) => {
     
     const handleMouseDown = (e) => {
         e.preventDefault();
-        dispatchEvent({
-            type: "focus"
-        })
+        dispatchEvent({ type: "focus" })
         setDragging(true);
     }
 
@@ -61,12 +59,11 @@ const WindowFrame = (props) => {
     const handleMinimize = () => {
         //NEEDS WORK (TEMP USE TO BE THE NUMBER OF MINIMIZED TABS BUT THAT HAS BEEN REMOVED)
         if (!windows[props.title].minimized) {
-            var temp = 0
             dispatchEvent({
                 type: "minimize",
                 minimized: true,
                 minimizedPos: {
-                    x: 0 + (element.getBoundingClientRect().width * temp),
+                    x: 0 + (element.getBoundingClientRect().width * 0),
                     y: window.innerHeight - (element.getBoundingClientRect().height)
                 }
             })
@@ -79,9 +76,7 @@ const WindowFrame = (props) => {
     }
 
     useLayoutEffect(() => {
-        // IGNORE USEEFFECT WARNING ABOUT windows ITS JUST THE CONSOLE LOG (DONT ADD HANDLEMOUSEMOVE EITHER OR SHIT BRICKS)
         if (!bInitialized) {
-            // SHOULD PROBABLY BE USELAYOUTEFFECT()
             dispatchEvent({
                 type: "add",
                 props: props

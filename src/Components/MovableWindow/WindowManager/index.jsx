@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useReducer, useState, useRef } from "rea
 import { WindowManagerContext } from "./context/WindowManagerContext";
 
 
-
 export default function WindowManager(props) {
     
     function windowStateReducer(tasks, action) {
@@ -10,6 +9,7 @@ export default function WindowManager(props) {
             case "add": {
                 tasks[action.id] = {
                     pos: action.data.props.pos,
+                    moved: false,
                     minimized: false,
                     minimizedIndex: 0,
                     minimizedPos: {x: 0, y: 0},
@@ -43,18 +43,20 @@ export default function WindowManager(props) {
             }
         }
     }
+
     const subscribers = useRef(new Map()) 
-    
     const [mousePos, setMousePos] = useState({x: 0, y: 0})
     const [prevPos, setPrevPos] = useState({ x: 0, y: 0});
     const [windows, dispatchWindowEvent] = useReducer(windowStateReducer, {})
+    
+    const dispatchCallbackEvent = useCallback(action => { dispatchWindowEvent(action) }, [])
 
     const useMouseTracker = callback => {
         const [id] = useState(new Date()); // This value is not 0, it's a system-wide per-component constant, guaranteed, tried and tested
       
         const subscribe = useCallback(() => {
           subscribers.current.set(id, callback);
-        }, [id, callback /* Reference Point */]);
+        }, [id, callback]);
       
         const unsubscribe = useCallback(() => {
           subscribers.current.delete(id);
@@ -69,23 +71,23 @@ export default function WindowManager(props) {
 
     const mouseMoveHandler = useCallback(event => {
         if (event) {
-            setPrevPos(mousePos);
-            setMousePos({x: event.pageX, y: event.pageY})
-            subscribers.current.forEach(callback => {
-                callback(mousePos, prevPos)
-            })
+            if ((event.pageX !== mousePos.x) || (event.pageY !== mousePos.y)) {
+                setPrevPos(mousePos);
+                setMousePos({x: event.pageX, y: event.pageY})
+                subscribers.current.forEach(callback => {
+                    callback(mousePos, prevPos)
+                })
+            }
+            
         }
     }, [mousePos, prevPos])
 
-    const dispatchCallbackEvent = useCallback(action => {
-        dispatchWindowEvent(action)
+    const handleResize = useCallback(event => {
+        // TRIGGER RESIZING
     }, [])
 
-    useEffect(()=>{
-        const handleResize = () => {
-            // TRIGGER RESIZING
-        }
 
+    useEffect(()=>{
         window.addEventListener('mousemove', mouseMoveHandler);
         window.addEventListener('resize', handleResize)
     
@@ -93,7 +95,7 @@ export default function WindowManager(props) {
             window.removeEventListener('mousemove', mouseMoveHandler);
             window.removeEventListener('resize', handleResize)
         };
-    }, [mouseMoveHandler])
+    }, [mouseMoveHandler, handleResize])
 
 
     return (
