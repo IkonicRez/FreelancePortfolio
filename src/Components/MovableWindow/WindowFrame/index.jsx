@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import "./window_frame.css"
 import { useContext } from "react";
 import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
-
-function tryTernaryOp(attempt, t, f) {
-    return (attempt !== undefined ? t : f)
-}
 
 
 const WindowFrame = (props) => {
@@ -15,11 +11,10 @@ const WindowFrame = (props) => {
     const [prevPos, setPrevPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [pos, setPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [bInitialized, setInitialized] = useState(false)
-    const stateValid = tryTernaryOp(windows[props.title], true, false)
+    const stateValid = windows[props.title] !== undefined
     var element = document.getElementById(props.title);
 
-
-    function dispatchEvent(action) {
+    const dispatchEvent = useCallback((action) => {
         let type = action.type
         delete action.type
         dispatchWindowEvent({
@@ -27,7 +22,8 @@ const WindowFrame = (props) => {
             data: action,
             id: props.title
         })
-    }
+    }, [props.title, dispatchWindowEvent])
+    
     
     // const setElementPosition = (x, y) => {
     //     let _x = (window.innerWidth / 100) * 3
@@ -42,7 +38,6 @@ const WindowFrame = (props) => {
         dispatchEvent({
             type: "focus"
         })
-        console.log(windows)
         setPrevPos({ x: mousePos.x, y: mousePos.y});
         setDragging(true);
     }
@@ -52,13 +47,13 @@ const WindowFrame = (props) => {
         setDragging(false);
     }
 
-    const handleMouseMove = () => {
+    const handleMouseMove = useCallback(() => {
         setPos({
             x: (pos.x - (prevPos.x - mousePos.x)),
             y: (pos.y - (prevPos.y - mousePos.y)) 
         })
         setPrevPos({ x: mousePos.x, y: mousePos.y})
-    }
+    }, [pos, prevPos, mousePos])
     
     const handleMinimize = () => {
         //NEEDS WORK (TEMP USE TO BE THE NUMBER OF MINIMIZED TABS BUT THAT HAS BEEN REMOVED)
@@ -95,7 +90,7 @@ const WindowFrame = (props) => {
             // SHOULD PROBABLY BE USELAYOUTEFFECT()
             handleMouseMove()
         }
-    }, [windows, bDragging, bInitialized, props])
+    }, [windows, bDragging, bInitialized, props, handleMouseMove, dispatchEvent])
 
     return (
         <div

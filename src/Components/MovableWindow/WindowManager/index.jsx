@@ -45,18 +45,18 @@ export default function WindowManager(props) {
     const [mousePos, setMousePos] = useState(props.default ? props.default : {x: 0, y: 0} )
     const [windows, dispatchWindowEvent] = useReducer(windowStateReducer, {})
 
-    const handleMousePosition = (e) => {
-        e.preventDefault();
-        if (e.pageX !== mousePos.x && e.pageY !== mousePos.y) {
-            setMousePos({x: e.pageX, y: e.pageY})
-        }
-    }
-
     useEffect(()=>{
+        const handleMouseMove = (event) => {
+            setMousePos({ x: event.clientX, y: event.clientY });
+        };
+    
+        window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('resize', handleResize)
-        return function() {
+    
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('resize', handleResize)
-        }
+        };
     }, [])
 
     const handleResize = () => {
@@ -67,7 +67,6 @@ export default function WindowManager(props) {
         <section 
             className={"movable-window-area" + props.className ? props.className : ""} 
             id={props.id ? props.id : "default_movable_area"}
-            onMouseMove={handleMousePosition}
         >   
             <WindowManagerContext.Provider value={{mousePos, windows, dispatchWindowEvent}}>
                 {props.children}
