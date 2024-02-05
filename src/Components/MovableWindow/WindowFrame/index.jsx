@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react'
-import "./window_frame.css"
-import { useContext } from "react";
+import React, { useState, useCallback, useLayoutEffect, useContext } from 'react'
 import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
+import "./window_frame.css"
 
 
 const WindowFrame = (props) => {
