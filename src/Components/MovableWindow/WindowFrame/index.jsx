@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react'
 import "./window_frame.css"
 import { useContext } from "react";
 import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
@@ -6,23 +6,36 @@ import { WindowManagerContext } from '../WindowManager/context/WindowManagerCont
 
 const WindowFrame = (props) => {
 
-    const {mousePos, windows, dispatchWindowEvent} = useContext(WindowManagerContext);
+    const {useMouseTracker, windows, dispatchCallbackEvent} = useContext(WindowManagerContext);
     const [bDragging, setDragging] = useState(false);
-    const [prevPos, setPrevPos] = useState({ x: props.pos.x, y: props.pos.y});
-    const [pos, setPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [bInitialized, setInitialized] = useState(false)
     const stateValid = windows[props.title] !== undefined
+
+    const mousePosCallback = (mousePos, prevPos) => {
+        if (bDragging) {
+            // SHOULD PROBABLY BE USELAYOUTEFFECT()
+            dispatchEvent({
+                type: "change",
+                pos: {
+                    x: (windows[props.title].pos.x - (prevPos.x - mousePos.x)),
+                    y: (windows[props.title].pos.y - (prevPos.y - mousePos.y)) 
+                }
+            })
+        }
+    };
+
+    useMouseTracker(mousePosCallback)
     var element = document.getElementById(props.title);
 
     const dispatchEvent = useCallback((action) => {
         let type = action.type
         delete action.type
-        dispatchWindowEvent({
+        dispatchCallbackEvent({
             type: type,
             data: action,
             id: props.title
         })
-    }, [props.title, dispatchWindowEvent])
+    }, [props.title, dispatchCallbackEvent])
     
     
     // const setElementPosition = (x, y) => {
@@ -38,7 +51,6 @@ const WindowFrame = (props) => {
         dispatchEvent({
             type: "focus"
         })
-        setPrevPos({ x: mousePos.x, y: mousePos.y});
         setDragging(true);
     }
 
@@ -46,14 +58,6 @@ const WindowFrame = (props) => {
         e.preventDefault();
         setDragging(false);
     }
-
-    const handleMouseMove = useCallback(() => {
-        setPos({
-            x: (pos.x - (prevPos.x - mousePos.x)),
-            y: (pos.y - (prevPos.y - mousePos.y)) 
-        })
-        setPrevPos({ x: mousePos.x, y: mousePos.y})
-    }, [pos, prevPos, mousePos])
     
     const handleMinimize = () => {
         //NEEDS WORK (TEMP USE TO BE THE NUMBER OF MINIMIZED TABS BUT THAT HAS BEEN REMOVED)
@@ -75,7 +79,7 @@ const WindowFrame = (props) => {
         }
     }
 
-    useEffect(()=> {
+    useLayoutEffect(() => {
         // IGNORE USEEFFECT WARNING ABOUT windows ITS JUST THE CONSOLE LOG (DONT ADD HANDLEMOUSEMOVE EITHER OR SHIT BRICKS)
         if (!bInitialized) {
             // SHOULD PROBABLY BE USELAYOUTEFFECT()
@@ -86,11 +90,7 @@ const WindowFrame = (props) => {
             console.log(windows)
             setInitialized(true)
         }
-        if (bDragging) {
-            // SHOULD PROBABLY BE USELAYOUTEFFECT()
-            handleMouseMove()
-        }
-    }, [windows, bDragging, bInitialized, props, handleMouseMove, dispatchEvent])
+    }, [bInitialized, props, dispatchEvent, windows])
 
     return (
         <div
@@ -98,8 +98,8 @@ const WindowFrame = (props) => {
             style={{ 
                 position: "absolute", 
                 zIndex: stateValid ? (windows[props.title].focus ? 99 : 10) : 10,
-                top: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.y : pos.y) : pos.y}px`, 
-                left: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.x : pos.x) : pos.x}px`}}
+                top: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.y : windows[props.title].pos.y) : props.pos.y}px`, 
+                left: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.x : windows[props.title].pos.x) : props.pos.x}px`}}
         >
             <div className="window-border" style={props.size ? props.size : {height: "150px", width: "150px"}}>
                 <div className="window-header" 
