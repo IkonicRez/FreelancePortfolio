@@ -36,7 +36,6 @@ const WindowFrame = (props) => {
         })
     }, [props.title, dispatchCallbackEvent])
     
-    
     // const setElementPosition = (x, y) => {
     //     let _x = (window.innerWidth / 100) * 3
     //     return {

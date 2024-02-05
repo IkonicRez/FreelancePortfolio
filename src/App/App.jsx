@@ -17,8 +17,8 @@ function App() {
           <Route index element={<Home/>} errorElement={<GenericNotFound/>}/>
           <Route path='/team' element={<Team/>} errorElement={<GenericNotFound/>}/>
           <Route path='/showcase' element={<Showcase/>} errorElement={<GenericNotFound/>}/>
+          <Route path='/*' element={<GenericNotFound/>}/>
         </Route>
-        <Route path='/*' element={<GenericNotFound/>} note="COULD BE MOVED UP TO KEEP NAV"/>
       </Routes>
     </BrowserRouter>
   );

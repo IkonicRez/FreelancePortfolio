@@ -1,5 +1,3 @@
 import { createContext } from "react";
 
-export const WindowManagerContext = createContext({
-    min: 0
-})
+export const WindowManagerContext = createContext(0)

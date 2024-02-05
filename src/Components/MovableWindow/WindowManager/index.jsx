@@ -3,7 +3,10 @@ import { WindowManagerContext } from "./context/WindowManagerContext";
 
 
 export default function WindowManager(props) {
-    
+
+    // This is how we add new options to the handler
+    // WindowFrames can run these switch statements and pass data to it for saving later
+    // all information from calling dispatchEvent will be in action.data
     function windowStateReducer(tasks, action) {
         switch (action.type) {
             case "add": {
