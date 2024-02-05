@@ -3,15 +3,31 @@ import "./window_frame.css"
 import { useContext } from "react";
 import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
 
+function tryTernaryOp(attempt, t, f) {
+    return (attempt !== undefined ? t : f)
+}
+
+
 const WindowFrame = (props) => {
 
-    const {mousePos, windowStates, addWindowState, updateWindowState} = useContext(WindowManagerContext);
+    const {mousePos, windows, dispatchWindowEvent} = useContext(WindowManagerContext);
     const [bDragging, setDragging] = useState(false);
     const [prevPos, setPrevPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [pos, setPos] = useState({ x: props.pos.x, y: props.pos.y});
     const [bInitialized, setInitialized] = useState(false)
+    const stateValid = tryTernaryOp(windows[props.title], true, false)
     var element = document.getElementById(props.title);
-    
+
+
+    function dispatchEvent(action) {
+        let type = action.type
+        delete action.type
+        dispatchWindowEvent({
+            type: type,
+            data: action,
+            id: props.title
+        })
+    }
     
     // const setElementPosition = (x, y) => {
     //     let _x = (window.innerWidth / 100) * 3
@@ -23,15 +39,16 @@ const WindowFrame = (props) => {
     
     const handleMouseDown = (e) => {
         e.preventDefault();
-        // Started setup for allowing window manager to control focus
-        element.parentElement.parentElement.style.zIndex = 99;
+        dispatchEvent({
+            type: "focus"
+        })
+        console.log(windows)
         setPrevPos({ x: mousePos.x, y: mousePos.y});
         setDragging(true);
     }
 
     const handleMouseUp = (e) => {
         e.preventDefault();
-        element.parentElement.parentElement.style.zIndex = "auto";
         setDragging(false);
     }
 
@@ -44,45 +61,50 @@ const WindowFrame = (props) => {
     }
     
     const handleMinimize = () => {
-        // NEEDS WORK (TEMP USE TO BE THE NUMBER OF MINIMIZED TABS BUT THAT HAS BEEN REMOVED)
-        if (!windowStates[props.title].minimized) {
+        //NEEDS WORK (TEMP USE TO BE THE NUMBER OF MINIMIZED TABS BUT THAT HAS BEEN REMOVED)
+        if (!windows[props.title].minimized) {
             var temp = 0
-            updateWindowState(props.title, 
-                {
-                    minimized: true,
-                    minimizedPos: {
-                        x: 0 + (element.getBoundingClientRect().width * temp),
-                        y: window.innerHeight - (element.getBoundingClientRect().height)
-                    }
+            dispatchEvent({
+                type: "minimize",
+                minimized: true,
+                minimizedPos: {
+                    x: 0 + (element.getBoundingClientRect().width * temp),
+                    y: window.innerHeight - (element.getBoundingClientRect().height)
                 }
-            )
-            console.log(windowStates)
+            })
         } else {
-            updateWindowState(props.title, { minimized: false })
-            console.log(windowStates)
+            dispatchEvent({
+                type: "minimize",
+                minimized: false
+            })
         }
     }
 
     useEffect(()=> {
-        // IGNORE USEEFFECT WARNING ABOUT WINDOWSTATES ITS JUST THE CONSOLE LOG (DONT ADD HANDLEMOUSEMOVE EITHER OR SHIT BRICKS)
+        // IGNORE USEEFFECT WARNING ABOUT windows ITS JUST THE CONSOLE LOG (DONT ADD HANDLEMOUSEMOVE EITHER OR SHIT BRICKS)
         if (!bInitialized) {
-            addWindowState(props)
-            console.log(windowStates)
+            // SHOULD PROBABLY BE USELAYOUTEFFECT()
+            dispatchEvent({
+                type: "add",
+                props: props
+            })
+            console.log(windows)
             setInitialized(true)
         }
         if (bDragging) {
+            // SHOULD PROBABLY BE USELAYOUTEFFECT()
             handleMouseMove()
         }
-    }, [mousePos, bDragging, bInitialized, addWindowState, props])
+    }, [windows, bDragging, bInitialized, props])
 
     return (
         <div
-            className={`window ${windowStates[props.title] !== undefined ? (windowStates[props.title].minimized ? 'minimized' : '') : ''}`}
+            className={`window ${stateValid ? (windows[props.title].minimized ? 'minimized' : '') : ''}`}
             style={{ 
                 position: "absolute", 
-                // HATE THIS BUT IT HAD TO BE DONE (MIGHT BE ABLE TO MOVE CHECK TO SOME VAR OR FUNCTION TO REMOVE REPEAT LINES)
-                top: `${windowStates[props.title] !== undefined ? (windowStates[props.title].minimized ? windowStates[props.title].minimizedPos.y : pos.y) : pos.y}px`, 
-                left: `${windowStates[props.title] !== undefined ? (windowStates[props.title].minimized ? windowStates[props.title].minimizedPos.x : pos.x) : pos.x}px`}}
+                zIndex: stateValid ? (windows[props.title].focus ? 99 : 10) : 10,
+                top: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.y : pos.y) : pos.y}px`, 
+                left: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.x : pos.x) : pos.x}px`}}
         >
             <div className="window-border" style={props.size ? props.size : {height: "150px", width: "150px"}}>
                 <div className="window-header" 

@@ -1,35 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { WindowManagerContext } from "./context/WindowManagerContext";
 
 export default function WindowManager(props) {
     
-    const [mousePos, setMousePos] = useState(props.default ? props.default : {x: 0, y: 0} )
-    const [windowStates, setWindowStates] = useState({})
-
-    const addWindowState = (v) => {
-        var state = windowStates
-        state[v.title] = {
-            pos: v.pos,
-            minimized: false,
-            minimizedIndex: 0,
-            minimizedPos: {x: 0, y: 0},
-            focus: false
+    function windowStateReducer(tasks, action) {
+        switch (action.type) {
+            case "add": {
+                tasks[action.id] = {
+                    pos: action.data.props.pos,
+                    minimized: false,
+                    minimizedIndex: 0,
+                    minimizedPos: {x: 0, y: 0},
+                    focus: false
+                }
+                return tasks
+            }
+            case "change": {
+                if (tasks[action.id] === undefined) return
+                Object.assign(tasks[action.id], action.data)
+                return tasks
+            }
+            case "minimize": {
+                if (tasks[action.id] === undefined) return
+                Object.assign(tasks[action.id], action.data)
+                return tasks
+            }
+            case "focus": {
+                if (tasks[action.id] === undefined) return;
+                Object.keys(tasks).forEach((v, i) => {
+                    if (v === action.id) {
+                        tasks[v].focus = true;
+                    } else { 
+                        tasks[v].focus = false;
+                    }
+                })
+                return tasks
+            }
+            default: {
+                throw Error(`Unknown Action: ${action.type}`)
+            }
         }
-        // console.log({
-        //     pos: v.pos,
-        //     minimized: false,
-        //     minimizedIndex: 0,
-        //     minimizedPos: {x: 0, y: 0},
-        //     focus: false
-        // })
-        setWindowStates(state) 
     }
 
-    const updateWindowState = (key, value) => {
-        if (windowStates[key] === undefined) return
-        var state = windowStates[key];
-        Object.assign(state, value)
-    }
+    const [mousePos, setMousePos] = useState(props.default ? props.default : {x: 0, y: 0} )
+    const [windows, dispatchWindowEvent] = useReducer(windowStateReducer, {})
 
     const handleMousePosition = (e) => {
         e.preventDefault();
@@ -55,7 +69,7 @@ export default function WindowManager(props) {
             id={props.id ? props.id : "default_movable_area"}
             onMouseMove={handleMousePosition}
         >   
-            <WindowManagerContext.Provider value={{mousePos, windowStates, addWindowState, updateWindowState}}>
+            <WindowManagerContext.Provider value={{mousePos, windows, dispatchWindowEvent}}>
                 {props.children}
             </WindowManagerContext.Provider>
         </section>
