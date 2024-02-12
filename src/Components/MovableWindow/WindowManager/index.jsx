@@ -23,11 +23,24 @@ export default function WindowManager(props) {
             case "change": {
                 if (tasks[action.id] === undefined) return
                 Object.assign(tasks[action.id], action.data)
+                tasks[action.id].moved = true;
                 return tasks
             }
             case "minimize": {
                 if (tasks[action.id] === undefined) return
                 Object.assign(tasks[action.id], action.data)
+                var element;
+                var minimizedWindows = 0;
+                Object.keys(tasks).forEach((v, i) => {
+                    if (tasks[v].minimized === true) {
+                        element = document.getElementById(v)
+                        tasks[v].minimizedPos = {
+                            x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
+                            y: window.innerHeight - (element.getBoundingClientRect().height)
+                        }
+                        minimizedWindows += 1
+                    }
+                })
                 return tasks
             }
             case "focus": {
@@ -86,19 +99,32 @@ export default function WindowManager(props) {
     }, [mousePos, prevPos])
 
     const handleResize = useCallback(event => {
-        // TRIGGER RESIZING
-    }, [])
+        var element;
+        var minimizedWindows = 0;
+        Object.keys(windows).forEach((v, i) => {
+            if (windows[v].minimized === true) {
+                element = document.getElementById(v)
+                windows[v].minimizedPos = {
+                    x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
+                    y: window.innerHeight - (element.getBoundingClientRect().height)
+                }
+                minimizedWindows += 1
+            }
+        })
+        subscribers.current.forEach(callback => {
+            callback(mousePos, prevPos)
+        })
+    }, [windows, prevPos, mousePos])
 
 
     useEffect(()=>{
         window.addEventListener('mousemove', mouseMoveHandler);
         window.addEventListener('resize', handleResize)
-    
         return () => {
             window.removeEventListener('mousemove', mouseMoveHandler);
             window.removeEventListener('resize', handleResize)
         };
-    }, [mouseMoveHandler, handleResize])
+    }, [mouseMoveHandler, handleResize, windows])
 
 
     return (

@@ -9,7 +9,6 @@ const WindowFrame = (props) => {
     const [bDragging, setDragging] = useState(false);
     const [bInitialized, setInitialized] = useState(false);
     const stateValid = windows[props.title] !== undefined
-    var element = document.getElementById(props.title);
 
     const mousePosCallback = (mousePos, prevPos) => {
         if (bDragging) {
@@ -55,31 +54,18 @@ const WindowFrame = (props) => {
         setDragging(false);
     }
     
-    const handleMinimize = () => {
-        //NEEDS WORK (TEMP USE TO BE THE NUMBER OF MINIMIZED TABS BUT THAT HAS BEEN REMOVED)
+    const handleMinimize = (e) => {
+        e.preventDefault()
         if (!windows[props.title].minimized) {
-            dispatchEvent({
-                type: "minimize",
-                minimized: true,
-                minimizedPos: {
-                    x: 0 + (element.getBoundingClientRect().width * 0),
-                    y: window.innerHeight - (element.getBoundingClientRect().height)
-                }
-            })
+            dispatchEvent({ type: "minimize", minimized: true })
         } else {
-            dispatchEvent({
-                type: "minimize",
-                minimized: false
-            })
+            dispatchEvent({ type: "minimize", minimized: false })
         }
     }
 
     useLayoutEffect(() => {
         if (!bInitialized) {
-            dispatchEvent({
-                type: "add",
-                props: props
-            })
+            dispatchEvent({ type: "add", props: props })
             console.log(windows)
             setInitialized(true)
         }
