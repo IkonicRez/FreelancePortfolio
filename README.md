@@ -7,6 +7,7 @@
     FIXED: Minimize doesnt stack elements next to each other (some setup has been done)
 
 ## BUGS:
+    CSS for header/nav needs some work
     Focus lays out weirdly after unfocusing due to auto zIndex taking over and using the elements dom order as index. \n
     May require more complex zIndex logic similar to the incrementing index idea but with a max index of the number of windows
 

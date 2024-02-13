@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useLayoutEffect, useContext } from 'react'
 import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
-import "./window_frame.css"
+import "./window_frame.scss"
 
 
 const WindowFrame = (props) => {
@@ -62,7 +62,9 @@ const WindowFrame = (props) => {
 
     useLayoutEffect(() => {
         if (!bInitialized) {
-            dispatchEvent({ type: "add", props: props })
+            let element = document.getElementById(props.title)
+            let pos = {x: element.getBoundingClientRect().x  , y: element.getBoundingClientRect().y}
+            dispatchEvent({ type: "add", props: props, pos: pos })
             setInitialized(true)
         }
     }, [bInitialized, props, dispatchEvent])
@@ -73,10 +75,10 @@ const WindowFrame = (props) => {
             style={{ 
                 position: "absolute", 
                 zIndex: stateValid ? (self.focus ? 99 : 10) : 10,
-                top: `${stateValid ? (self.minimized ? self.minimizedPos.y : self.pos.y) : props.pos.y}px`, 
-                left: `${stateValid ? (self.minimized ? self.minimizedPos.x : self.pos.x) : props.pos.x}px`}}
+                top: `${stateValid ? (self.minimized ? self.minimizedPos.y : self.pos.y) : 0}px`, 
+                left: `${stateValid ? (self.minimized ? self.minimizedPos.x : self.pos.x) : 0}px`}}
         >
-            <div className="window-border" style={props.size ? props.size : {height: "150px", width: "150px"}}>
+            <div className="window-border">
                 <div className="window-header" 
                     id={props.title}
                     onMouseDown={handleMouseDown} 

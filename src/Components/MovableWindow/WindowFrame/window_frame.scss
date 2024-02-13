@@ -1,4 +1,5 @@
 .window-border {
+    min-height: 200px;
     border: 3svw solid rgb(0, 0, 0);
     background-color: #040F0F;
     border-image: url('../WindowFrame/window_border.png') calc(128/3) round;
@@ -14,4 +15,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+// @for $i from 1 to 5 {
+//     .window-area :nth-child(#{$i}) {
+//         grid-column: #{$i};
+//         grid-row: auto;
+//     }
+// }
+.window-area {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, [col-start] 1fr);
+    gap: 2%;
+    padding: 2%;
+    width: 100%;
+    height: 100svh;
 }

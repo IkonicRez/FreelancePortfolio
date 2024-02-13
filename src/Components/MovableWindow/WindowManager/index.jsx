@@ -12,7 +12,7 @@ export default function WindowManager(props) {
         switch (action.type) {
             case "add": {
                 tasks[action.id] = {
-                    pos: action.data.props.pos,
+                    pos: {x: 0, y: 0},
                     moved: false,
                     minimized: false,
                     minimizedIndex: 0,
@@ -132,7 +132,7 @@ export default function WindowManager(props) {
     return (
         <section 
             className={"movable-window-area" + props.className ? props.className : ""} 
-            id={props.id ? props.id : "default_movable_area"}
+            id={props.id ? `default-movable-area ${props.id}` : "default-movable-area"}
         >   
             <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
                 {props.children}

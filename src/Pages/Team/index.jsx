@@ -9,7 +9,7 @@ export default function Team() {
         // done: ratio of window size to 1920x1080 (1.2)
         // done: apply ratio to x, y and gap to ensure scaling
         // todo: FUNCTION STILL NEEDS A GOOD WAY TO RERUN ON RESCALE
-        var winSize = {x: normalize(window.innerWidth, 1920, 0), y: normalize(window.innerHeight, 1080, 0)}
+        var winSize = {x: normalize(window.innerWidth, 1920, 0), y: normalize(window.innerHeight, 927, 0)}
         x = x * winSize.x
         y = y * winSize.y
         return {
@@ -19,29 +19,17 @@ export default function Team() {
     }
 
     return (
-        <div>
-            <WindowFrame 
-                title="Random Title" 
-                pos={getPosition(25, 300, 0, 0, 250)}
-            >
+        <div className='window-area'>
+            <WindowFrame title="Random Title">
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
-            <WindowFrame 
-                title="Test" 
-                pos={getPosition(25, 300, 0, 1, 250)}
-            >
+            <WindowFrame title="Test">
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
-            <WindowFrame 
-                title="Showcase" 
-                pos={getPosition(25, 300, 0, 2, 250)}
-            >
+            <WindowFrame title="Showcase">
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
-            <WindowFrame 
-                title="Showcase 1" 
-                pos={getPosition(25, 300, 0, 3, 250)}
-            >
+            <WindowFrame title="Showcase 1">
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
         </div>

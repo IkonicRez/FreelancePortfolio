@@ -5,7 +5,6 @@ import { Outlet, Link } from 'react-router-dom'
 
 export default function MainLayout() {
   return (
-    <div>
       <WindowManager>
         <NavHeader title="IRFreelance">
           <Link to="/team"><p>Team</p></Link>
@@ -13,6 +12,5 @@ export default function MainLayout() {
         </NavHeader>
         <Outlet/>
       </WindowManager>
-    </div>
   )
 }
