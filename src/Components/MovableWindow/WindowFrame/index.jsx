@@ -9,14 +9,15 @@ const WindowFrame = (props) => {
     const [bDragging, setDragging] = useState(false);
     const [bInitialized, setInitialized] = useState(false);
     const stateValid = windows[props.title] !== undefined
+    const self = windows[props.title]
 
     const mousePosCallback = (mousePos, prevPos) => {
         if (bDragging) {
             dispatchEvent({
                 type: "change",
                 pos: {
-                    x: (windows[props.title].pos.x - (prevPos.x - mousePos.x)),
-                    y: (windows[props.title].pos.y - (prevPos.y - mousePos.y)) 
+                    x: (self.pos.x - (prevPos.x - mousePos.x)),
+                    y: (self.pos.y - (prevPos.y - mousePos.y)) 
                 },
                 moved: true
             })
@@ -56,29 +57,24 @@ const WindowFrame = (props) => {
     
     const handleMinimize = (e) => {
         e.preventDefault()
-        if (!windows[props.title].minimized) {
-            dispatchEvent({ type: "minimize", minimized: true })
-        } else {
-            dispatchEvent({ type: "minimize", minimized: false })
-        }
+        dispatchEvent({ type: "minimize", minimized: !self.minimized })
     }
 
     useLayoutEffect(() => {
         if (!bInitialized) {
             dispatchEvent({ type: "add", props: props })
-            console.log(windows)
             setInitialized(true)
         }
-    }, [bInitialized, props, dispatchEvent, windows])
+    }, [bInitialized, props, dispatchEvent])
 
     return (
         <div
-            className={`window ${stateValid ? (windows[props.title].minimized ? 'minimized' : '') : ''}`}
+            className={`window ${stateValid ? (self.minimized ? 'minimized' : '') : ''}`}
             style={{ 
                 position: "absolute", 
-                zIndex: stateValid ? (windows[props.title].focus ? 99 : 10) : 10,
-                top: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.y : windows[props.title].pos.y) : props.pos.y}px`, 
-                left: `${stateValid ? (windows[props.title].minimized ? windows[props.title].minimizedPos.x : windows[props.title].pos.x) : props.pos.x}px`}}
+                zIndex: stateValid ? (self.focus ? 99 : 10) : 10,
+                top: `${stateValid ? (self.minimized ? self.minimizedPos.y : self.pos.y) : props.pos.y}px`, 
+                left: `${stateValid ? (self.minimized ? self.minimizedPos.x : self.pos.x) : props.pos.x}px`}}
         >
             <div className="window-border" style={props.size ? props.size : {height: "150px", width: "150px"}}>
                 <div className="window-header" 

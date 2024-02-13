@@ -4,6 +4,7 @@ import { WindowManagerContext } from "./context/WindowManagerContext";
 
 export default function WindowManager(props) {
 
+    const [triggerRender, setTriggerRender] = useState(false)
     // This is how we add new options to the handler
     // WindowFrames can run these switch statements and pass data to it for saving later
     // all information from calling dispatchEvent will be in action.data
@@ -65,7 +66,10 @@ export default function WindowManager(props) {
     const [prevPos, setPrevPos] = useState({ x: 0, y: 0});
     const [windows, dispatchWindowEvent] = useReducer(windowStateReducer, {})
     
-    const dispatchCallbackEvent = useCallback(action => { dispatchWindowEvent(action) }, [])
+    const dispatchCallbackEvent = useCallback(action => { 
+        dispatchWindowEvent(action)
+        setTriggerRender(!triggerRender)
+    }, [triggerRender])
 
     const useMouseTracker = callback => {
         const [id] = useState(new Date()); // This value is not 0, it's a system-wide per-component constant, guaranteed, tried and tested
@@ -111,10 +115,8 @@ export default function WindowManager(props) {
                 minimizedWindows += 1
             }
         })
-        subscribers.current.forEach(callback => {
-            callback(mousePos, prevPos)
-        })
-    }, [windows, prevPos, mousePos])
+        setTriggerRender(!triggerRender)
+    }, [windows, triggerRender])
 
 
     useEffect(()=>{

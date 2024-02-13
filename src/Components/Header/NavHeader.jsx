@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 const NavHeader = (props) => {
   return (
     <div>
-      <header id='App-header'>
+      <header>
         <Link to="/">
           <h1>{props.title}</h1>
         </Link>
-        <nav id='header-nav'>
+        <nav>
           {props.children}
         </nav>
       </header>

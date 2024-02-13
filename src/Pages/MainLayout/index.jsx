@@ -5,11 +5,11 @@ import { Outlet, Link } from 'react-router-dom'
 
 export default function MainLayout() {
   return (
-    <div className="App">
-      <WindowManager className="App-body">
+    <div>
+      <WindowManager>
         <NavHeader title="IRFreelance">
-          <Link to="/team">Team</Link>
-          <Link to="/showcase">Showcase</Link>
+          <Link to="/team"><p>Team</p></Link>
+          <Link to="/showcase"><p>Showcase</p></Link>
         </NavHeader>
         <Outlet/>
       </WindowManager>
