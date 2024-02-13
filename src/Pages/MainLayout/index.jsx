@@ -10,7 +10,9 @@ export default function MainLayout() {
           <Link to="/team"><p>Team</p></Link>
           <Link to="/showcase"><p>Showcase</p></Link>
         </NavHeader>
-        <Outlet/>
+        <div className='window-area'>
+          <Outlet/>
+        </div>
       </WindowManager>
   )
 }
