@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState, useRef } from "react";
 import { WindowManagerContext } from "./context/WindowManagerContext";
-
+import { createBrowserHistory } from "../../../Utils/BrowserHistory";
 
 export default function WindowManager(props) {
 
@@ -25,6 +25,7 @@ export default function WindowManager(props) {
                 if (tasks[action.id] === undefined) return
                 Object.assign(tasks[action.id], action.data)
                 tasks[action.id].moved = true;
+
                 return tasks
             }
             case "minimize": {
@@ -54,6 +55,9 @@ export default function WindowManager(props) {
                     }
                 })
                 return tasks
+            }
+            case "reset": {
+                return {}
             }
             default: {
                 throw Error(`Unknown Action: ${action.type}`)

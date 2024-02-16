@@ -48,6 +48,7 @@ nav * {
 header a {
   margin: 0 0.2vw 0.1vw 0.2vw;
   border-bottom: 2px solid var(--alt-text-color);
+  text-underline-offset: 150px;
 }
 
 a {

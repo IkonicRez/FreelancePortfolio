@@ -2,6 +2,8 @@
     /* COLORS */
         /* BACKGROUND COLORS */
         --background-color: #040f0f;
+            /* WINDOW */
+                --window-border-background: #040F0F;
         /* --menu-bkgcolor: #12191a; */
         /* TEXT COLORS */
         --light-text-color: #bef1f5;
@@ -10,6 +12,8 @@
         /* SHADOW COLORS */
         --grey-shadow: #57737a;
         --shadowcolor: gold;
+            /* WINDOW */
+                --window-border-boxshadow: 0 0 1px 0 rgb(145, 202, 189), 0 0 8px 0 rgba(178, 230, 231, 0.19);
     /* TEXT EFFECTS */
         --base-textshadow: -1px 1px 1px var(--shadowcolor),
         1px 1px 1px var(--shadowcolor),
@@ -17,12 +21,20 @@
         1px -1px 1px var(--shadowcolor);
     /* SIZES  */
         --h1-textsize: 4vw;
+        /* WINDOW */
+            --window-header-textsize: 1.75svw;
     /* SPACING */
         --h1-margintop: 25vh;
+        /* WINDOW */
+            --window-header-margin: -4svw auto auto -3svw;
     /* BORDERS */
-
+        /* WINDOW */
+            --window-border-border: 3svw solid rgb(0, 0, 0);
     /* TRANSFORM */
-
+        /* WINDOW */
+            --window-header-height: 3svw;
+            --window-header-width: calc(100% + 6svw);
+            --window-border-minheight: 200px;
 }
 
 /* @font-face {
