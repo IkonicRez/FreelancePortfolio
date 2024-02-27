@@ -20,7 +20,7 @@
     align-items: center;
 }
 
-.movable-window-area {
+.window-area {
     position: relative;
     display: grid;
 }

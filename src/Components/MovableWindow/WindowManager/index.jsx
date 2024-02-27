@@ -160,7 +160,8 @@ export default function WindowManager(props) {
         >   
             <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
                 {props.children}
-                {
+                <div className="window-area">
+                    {
                         Object.keys(windows).filter((v) => {
                             console.log(windows[v])
                             return windows[v].minimized !== true
@@ -173,6 +174,7 @@ export default function WindowManager(props) {
                             )
                         })
                     }
+                </div>
                 <div className="window-minimzer">
                     {
                         Object.keys(windows).filter((v) => {

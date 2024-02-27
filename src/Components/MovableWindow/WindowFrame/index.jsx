@@ -60,7 +60,7 @@ const WindowFrame = (props) => {
         <div
             className={`window ${stateValid ? (self.minimized ? 'minimized' : '') : ''}`}
             style={{ 
-                position: "absolute", 
+                position: stateValid ? (self.minimized ? "unset" : "absolute") : "absolute", 
                 zIndex: stateValid ? (self.focus ? 99 : 10) : 10,
                 transform: stateValid ? `translate(${isValueValid(self.pos.x, self.minimizedPos.x)}, ${isValueValid(self.pos.y, self.minimizedPos.y)})` : "none", 
             }}
