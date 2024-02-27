@@ -13,7 +13,6 @@ export default function WindowManager(props) {
     function windowStateReducer(tasks, action) {
         switch (action.type) {
             case "initialize": {
-                console.log(action)
                 action.data.forEach((v) => {
                     tasks[v.title] = {
                         content: v.content,
@@ -27,43 +26,16 @@ export default function WindowManager(props) {
                 })
                 return tasks
             }
-            case "add": {
-                tasks[action.id] = {
-                    pos: {x: 0, y: 0},
-                    moved: false,
-                    minimized: false,
-                    minimizedIndex: 0,
-                    minimizedPos: {x: 0, y: 0},
-                    focus: false
-                }
-                return tasks
-            }
             case "change": {
                 if (tasks[action.id] === undefined) return
                 Object.assign(tasks[action.id], action.data)
                 tasks[action.id].moved = true;
-                console.log(tasks[action.id].pos)
 
                 return tasks
             }
             case "minimize": {
                 if (tasks[action.id] === undefined) return
                 Object.assign(tasks[action.id], action.data)
-                // var element;
-                // var minimizedWindows = 0;
-                // var container = document.getElementsByClassName("window-area")[0]
-                // if (container === undefined) return
-                // container = container.getBoundingClientRect()
-                // Object.keys(tasks).forEach((v, i) => {
-                //     if (tasks[v].minimized === true) {
-                //         element = document.getElementById(v)
-                //         tasks[v].minimizedPos = {
-                //             x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
-                //             y: (container.height) - (element.getBoundingClientRect().height)
-                //         }
-                //         minimizedWindows += 1
-                //     }
-                // })
                 return tasks
             }
             case "focus": {
@@ -163,10 +135,8 @@ export default function WindowManager(props) {
                 <div className="window-area">
                     {
                         Object.keys(windows).filter((v) => {
-                            console.log(windows[v])
                             return windows[v].minimized !== true
                         }).map(v => {
-                            console.log(v);
                             return (
                                 <WindowFrame title={v}>
                                     {windows[v].content}
@@ -178,10 +148,8 @@ export default function WindowManager(props) {
                 <div className="window-minimzer">
                     {
                         Object.keys(windows).filter((v) => {
-                            console.log(windows[v])
                             return windows[v].minimized === true
                         }).map(v => {
-                            console.log(v);
                             return (
                                 <WindowFrame title={v}>
                                     {windows[v].content}

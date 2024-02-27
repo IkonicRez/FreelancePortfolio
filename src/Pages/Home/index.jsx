@@ -1,11 +1,12 @@
-import WindowFrame from "../../Components/MovableWindow/WindowFrame";
+import WindowPage from '../../Components/MovableWindow'
 
 
-export default function Team() {
+const Home = () => WindowPage([
+    {
+        title: "Welcome to IR Freelance",
+        content: ""
+    }
+])
 
-    return (
-        <>
-            <WindowFrame title="Welcome"/>
-        </>
-    )
-}
+
+export default Home;
