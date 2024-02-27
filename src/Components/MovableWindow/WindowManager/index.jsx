@@ -13,7 +13,7 @@ export default function WindowManager(props) {
     function windowStateReducer(tasks, action) {
         switch (action.type) {
             case "initialize": {
-                console.log("init")
+                console.log(action)
                 action.data.forEach((v) => {
                     tasks[v.title] = {
                         content: v.content,
@@ -49,21 +49,21 @@ export default function WindowManager(props) {
             case "minimize": {
                 if (tasks[action.id] === undefined) return
                 Object.assign(tasks[action.id], action.data)
-                var element;
-                var minimizedWindows = 0;
-                var container = document.getElementsByClassName("window-area")[0]
-                if (container === undefined) return
-                container = container.getBoundingClientRect()
-                Object.keys(tasks).forEach((v, i) => {
-                    if (tasks[v].minimized === true) {
-                        element = document.getElementById(v)
-                        tasks[v].minimizedPos = {
-                            x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
-                            y: (container.height) - (element.getBoundingClientRect().height)
-                        }
-                        minimizedWindows += 1
-                    }
-                })
+                // var element;
+                // var minimizedWindows = 0;
+                // var container = document.getElementsByClassName("window-area")[0]
+                // if (container === undefined) return
+                // container = container.getBoundingClientRect()
+                // Object.keys(tasks).forEach((v, i) => {
+                //     if (tasks[v].minimized === true) {
+                //         element = document.getElementById(v)
+                //         tasks[v].minimizedPos = {
+                //             x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
+                //             y: (container.height) - (element.getBoundingClientRect().height)
+                //         }
+                //         minimizedWindows += 1
+                //     }
+                // })
                 return tasks
             }
             case "focus": {
@@ -123,7 +123,6 @@ export default function WindowManager(props) {
                     callback(mousePos, prevPos)
                 })
             }
-            
         }
     }, [mousePos, prevPos])
 
@@ -160,17 +159,20 @@ export default function WindowManager(props) {
             id={props.id ? `default-movable-area ${props.id}` : "default-movable-area"}
         >   
             <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
+                {props.children}
                 {
-                    Object.keys(windows).map(v => {
-                        
-                        console.log(windows);
-                        return (
-                            <WindowFrame title={v}>
-                                {windows[v].content}
-                            </WindowFrame>
-                        )
-                    })
-                }
+                        Object.keys(windows).filter((v) => {
+                            console.log(windows[v])
+                            return windows[v].minimized !== true
+                        }).map(v => {
+                            console.log(v);
+                            return (
+                                <WindowFrame title={v}>
+                                    {windows[v].content}
+                                </WindowFrame>
+                            )
+                        })
+                    }
                 <div className="window-minimzer">
                     {
                         Object.keys(windows).filter((v) => {

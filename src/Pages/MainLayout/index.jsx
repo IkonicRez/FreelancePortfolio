@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 export default function MainLayout() {
   return (
     <>
-    <NavHeader title="IRFreelance"/>
+      <NavHeader title="IRFreelance"/>
       <WindowManager>
           <Outlet/>
       </WindowManager>

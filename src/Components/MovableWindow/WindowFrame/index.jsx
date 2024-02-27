@@ -7,7 +7,6 @@ const WindowFrame = (props) => {
 
     const {useMouseTracker, windows, dispatchCallbackEvent} = useContext(WindowManagerContext);
     const [bDragging, setDragging] = useState(false);
-    const [bInitialized, setInitialized] = useState(false);
     const stateValid = windows[props.title] !== undefined
     const self = windows[props.title]
 
@@ -41,14 +40,6 @@ const WindowFrame = (props) => {
         })
     }, [props.title, dispatchCallbackEvent])
     
-    // const setElementPosition = (x, y) => {
-    //     let _x = (window.innerWidth / 100) * 3
-    //     return {
-    //         x: ((x - (props.size.width / 2)) - _x),
-    //         y: ((y - (props.size.height / 2)) - _x)
-    //     }
-    // }
-    
     const handleMouseDown = (e) => {
         e.preventDefault();
         dispatchEvent({ type: "focus" })
@@ -64,15 +55,6 @@ const WindowFrame = (props) => {
         e.preventDefault()
         dispatchEvent({ type: "minimize", minimized: !self.minimized })
     }
-
-    useLayoutEffect(() => {
-        // if (!bInitialized) {
-        //     let element = document.getElementById(props.title)
-        //     let pos = {x: element.getBoundingClientRect().x  , y: element.getBoundingClientRect().y}
-        //     dispatchEvent({ type: "add", props: props, pos: pos })
-        //     setInitialized(true)
-        // }
-    }, [bInitialized, props, dispatchEvent])
 
     return (
         <div
