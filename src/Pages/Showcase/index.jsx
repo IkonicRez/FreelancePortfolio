@@ -6,7 +6,7 @@ export default function Showcase() {
 
     return (
         <>
-             <WindowFrame title="Fantastical Lands">
+             <WindowFrame title="Fantastical Lands" style={{backgroundImage: `url('./assets/images/FantasticalLands.png')`}}>
                 <p style={{margin: 0}}>Welcome to IR Freelance</p>
             </WindowFrame>
             <WindowFrame title="Test">

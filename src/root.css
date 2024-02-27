@@ -34,7 +34,8 @@
         /* WINDOW */
             --window-header-height: 3svw;
             --window-header-width: calc(100% + 6svw);
-            --window-border-minheight: 200px;
+            --window-border-minheight: 150px;
+            --window-border-minwidth: 300px;
 }
 
 /* @font-face {
