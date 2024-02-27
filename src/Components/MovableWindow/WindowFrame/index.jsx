@@ -11,6 +11,11 @@ const WindowFrame = (props) => {
     const stateValid = windows[props.title] !== undefined
     const self = windows[props.title]
 
+
+    const isValueValid = (pos, minPos) => {
+        return `${stateValid ? (self.minimized ? minPos : pos) : 0}px`
+    }
+
     const mousePosCallback = (mousePos, prevPos) => {
         if (bDragging) {
             dispatchEvent({
@@ -61,12 +66,12 @@ const WindowFrame = (props) => {
     }
 
     useLayoutEffect(() => {
-        if (!bInitialized) {
-            let element = document.getElementById(props.title)
-            let pos = {x: element.getBoundingClientRect().x  , y: element.getBoundingClientRect().y}
-            dispatchEvent({ type: "add", props: props, pos: pos })
-            setInitialized(true)
-        }
+        // if (!bInitialized) {
+        //     let element = document.getElementById(props.title)
+        //     let pos = {x: element.getBoundingClientRect().x  , y: element.getBoundingClientRect().y}
+        //     dispatchEvent({ type: "add", props: props, pos: pos })
+        //     setInitialized(true)
+        // }
     }, [bInitialized, props, dispatchEvent])
 
     return (
@@ -75,8 +80,8 @@ const WindowFrame = (props) => {
             style={{ 
                 position: "absolute", 
                 zIndex: stateValid ? (self.focus ? 99 : 10) : 10,
-                top: `${stateValid ? (self.minimized ? self.minimizedPos.y : self.pos.y) : 0}px`, 
-                left: `${stateValid ? (self.minimized ? self.minimizedPos.x : self.pos.x) : 0}px`}}
+                transform: stateValid ? `translate(${isValueValid(self.pos.x, self.minimizedPos.x)}, ${isValueValid(self.pos.y, self.minimizedPos.y)})` : "none", 
+            }}
         >
             <div className="window-border">
                 <div className="window-header" 

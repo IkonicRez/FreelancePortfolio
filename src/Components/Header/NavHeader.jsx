@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { WindowManagerContext } from '../MovableWindow/WindowManager/context/WindowManagerContext';
 
 const NavHeader = (props) => {
-  const {x, y, dispatchCallbackEvent} = useContext(WindowManagerContext);
+  const {mouseTracker, windows, dispatchCallbackEvent} = useContext(WindowManagerContext);
   return (
     <header>
       <Link to="/" onClick={() => {dispatchCallbackEvent({type:"reset"})}}>

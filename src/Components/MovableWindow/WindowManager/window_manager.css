@@ -1,0 +1,7 @@
+.window-minimzer {
+    position: absolute;
+    bottom: 0;
+    height: var(--window-header-height);
+    width: 100%;
+    overflow-y: hidden;
+}

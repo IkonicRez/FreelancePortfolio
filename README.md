@@ -10,5 +10,6 @@
     CSS for header/nav needs some work
     Focus lays out weirdly after unfocusing due to auto zIndex taking over and using the elements dom order as index. \n
     May require more complex zIndex logic similar to the incrementing index idea but with a max index of the number of windows
+    Window undefined error
 
     FIXED: Some actions only update after the mouse moves (resize, minimize)

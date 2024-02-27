@@ -1,3 +1,5 @@
+
+
 .window-border {
     min-height: var(--window-border-minheight);
     width: max-content;
@@ -18,7 +20,11 @@
     align-items: center;
 }
 
-.window-area {
+.movable-window-area {
     position: relative;
     display: grid;
+}
+
+.window.minimized {
+    transition: transform 0.2s ease-in-out;
 }
