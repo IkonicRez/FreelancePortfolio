@@ -17,7 +17,7 @@ const WindowMinimizer = (props) => {
             <div className={`window-minimizer ${showScrollbar}`}>
                 {props.children}
             </div>
-            <div className={`window-minimizer-scrollbar-container ${showScrollbar}`} aria-label="Container used to create space for the scrollbar"></div>
+            <div className={`window-minimizer-scrollbar-container ${showScrollbar}`}></div>
         </div>
     )
 

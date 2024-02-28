@@ -40,6 +40,12 @@ export default function WindowManager(props) {
                 setCurrentPage(action.title)
                 return tasks
             }
+            case "minimizeAll": {
+                Object.keys(tasks).forEach((v, i) => {
+                    tasks[v].minimized = true
+                })
+                return tasks
+            }
             case "change": {
                 if (tasks[action.id] === undefined) return
                 //Add all keys and values from the action.data object to the specified tasks object.

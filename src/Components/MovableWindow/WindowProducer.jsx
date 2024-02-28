@@ -22,8 +22,12 @@ const WindowProducer = (data, title) => {
     }, [dispatchCallbackEvent, data, title])
 
     useEffect(() => {
-        if (!bInitialized) initDispatch()
-    }, [initDispatch, bInitialized])
+        if (!bInitialized) {
+            console.log("not init")
+            dispatchCallbackEvent({type: "minimizeAll"})
+            initDispatch()
+        }
+    }, [initDispatch, dispatchCallbackEvent, bInitialized])
 
 }
 
