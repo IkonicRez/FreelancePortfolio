@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useContext, useState } from 'react'
 import { WindowManagerContext } from './WindowManager/context/WindowManagerContext'
 
-const WindowPage = (data) => {
+const WindowPage = (data, title) => {
     
     const [bInitialized, setInitialized] = useState(false);
     const {_, windows, dispatchCallbackEvent} = useContext(WindowManagerContext)
@@ -10,7 +10,8 @@ const WindowPage = (data) => {
         dispatchCallbackEvent(
             {
                 type:"initialize", 
-                data: data
+                data: data,
+                title: title
             }
         )
         setInitialized(true)

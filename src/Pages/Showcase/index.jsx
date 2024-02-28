@@ -20,7 +20,7 @@ const Showcase = () => WindowPage([
         content: "Welcome to IR Freelance",
         img: "",
     }
-])
+], "showcase")
 
 
 export default Showcase;

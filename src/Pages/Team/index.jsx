@@ -15,7 +15,7 @@ const Team = () => WindowPage([
         title: "Ceasar",
         content: "VFX, Graphic Designer, Web Designer"
     }
-])
+], "team")
 
 
 export default Team;

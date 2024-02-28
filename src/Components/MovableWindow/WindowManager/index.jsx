@@ -7,6 +7,7 @@ import './window_manager.css'
 export default function WindowManager(props) {
 
     const [triggerRender, setTriggerRender] = useState(false)
+    const [currentPage, setCurrentPage] = useState("")
     // This is how we add new options to the handler
     // WindowFrames can run these switch statements and pass data to it for saving later
     // all information from calling dispatchEvent will be in action.data
@@ -24,6 +25,7 @@ export default function WindowManager(props) {
                         focus: false
                     }
                 })
+                setCurrentPage(action.title)
                 return tasks
             }
             case "change": {
@@ -128,7 +130,7 @@ export default function WindowManager(props) {
     return (
         <section 
             className={props.className ? "movable-window-area" + props.className : "movable-window-area"} 
-            id={props.id ? `default-movable-area ${props.id}` : "default-movable-area"}
+            id={`default-movable-area ${currentPage}`}
         >   
             <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
                 {props.children}
