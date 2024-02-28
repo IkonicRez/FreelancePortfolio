@@ -134,12 +134,13 @@ export default function WindowManager(props) {
                 {props.children}
                 <div className="window-area">
                     {
-                        Object.keys(windows).filter((v) => {
+                        Object.keys(windows).filter(v => {
                             return windows[v].minimized !== true
-                        }).map(v => {
+                        }).map((v, i) => {
+                            const d = windows[v]
                             return (
-                                <WindowFrame title={v}>
-                                    {windows[v].content}
+                                <WindowFrame title={v} key={i}>
+                                {d ? <p>{windows[v].content}</p> : ""} 
                                 </WindowFrame>
                             )
                         })
@@ -149,9 +150,9 @@ export default function WindowManager(props) {
                     {
                         Object.keys(windows).filter((v) => {
                             return windows[v].minimized === true
-                        }).map(v => {
+                        }).map((v, i) => {
                             return (
-                                <WindowFrame title={v}>
+                                <WindowFrame title={v} key={i}>
                                     {windows[v].content}
                                 </WindowFrame>
                             )

@@ -5,15 +5,15 @@ import WindowPage from '../../Components/MovableWindow'
 const Team = () => WindowPage([
     {
         title: "Callum",
-        content: "Partner, Head of Programming"
+        content: "Partner, Head of Programming and Optimization"
     },
     {
         title: "Mike",
-        content: "Partner"
+        content: "Partner, Head of Project Management and Communication, Full Stack Development"
     },
     {
-        title: "Caeser",
-        content: "VFX, Web Designer"
+        title: "Ceasar",
+        content: "VFX, Graphic Designer, Web Designer"
     }
 ])
 

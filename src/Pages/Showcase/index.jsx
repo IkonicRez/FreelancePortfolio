@@ -17,7 +17,8 @@ const Showcase = () => WindowPage([
     },
     {
         title: "Showcase 1",
-        content: "Welcome to IR Freelance"
+        content: "Welcome to IR Freelance",
+        img: "",
     }
 ])
 
