@@ -1,8 +1,8 @@
 import './showcase.css'
-import WindowPage from '../../Components/MovableWindow'
+import WindowProducer from '../../Components/MovableWindow/WindowProducer'
 
 
-const Showcase = () => WindowPage([
+const Showcase = () => WindowProducer([
     {
         title: "Random Title",
         content: "Welcome to IR Freelance"
@@ -20,7 +20,7 @@ const Showcase = () => WindowPage([
         content: "Welcome to IR Freelance",
         img: "",
     }
-])
+], "showcase")
 
 
 export default Showcase;

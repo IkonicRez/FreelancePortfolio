@@ -1,8 +1,8 @@
 import './team.css'
-import WindowPage from '../../Components/MovableWindow'
+import WindowProducer from '../../Components/MovableWindow/WindowProducer'
 
 
-const Team = () => WindowPage([
+const Team = () => WindowProducer([
     {
         title: "Callum",
         content: "Partner, Head of Programming and Optimization"
@@ -15,7 +15,7 @@ const Team = () => WindowPage([
         title: "Ceasar",
         content: "VFX, Graphic Designer, Web Designer"
     }
-])
+], "team")
 
 
 export default Team;
