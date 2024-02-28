@@ -39,14 +39,14 @@
     /* SPACING */
         --h1-margintop: 25vh;
         /* WINDOW */
-            --window-header-margin: -4svw auto auto -3svw;
+            --window-header-margin: -4svw auto auto -4svw;
     /* BORDERS */
         /* WINDOW */
             --window-border-border: 3svw solid rgb(0, 0, 0);
     /* TRANSFORM */
         /* WINDOW */
             --window-header-height: 3svw;
-            --window-header-width: calc(100% + 6svw);
+            --window-header-width: calc(100% + 8svw);
             --window-border-minheight: 150px;
             --window-border-minwidth: 300px;
 }

@@ -40,5 +40,10 @@
 }
 
 .window.minimized {
+    width: min-content;
     transition: transform 0.2s ease-in-out;
+}
+
+.window.minimized .window-header {
+    justify-content: left;
 }

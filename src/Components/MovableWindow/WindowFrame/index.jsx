@@ -1,11 +1,14 @@
 import React, { useState, useCallback, useContext } from 'react'
-import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
+import { MouseEventContext, WindowContext, WindowEventContext } from '../WindowManager/context/WindowManagerContext';
 import "./window_frame.css"
 
 
 const WindowFrame = (props) => {
 
-    const {useMouseTracker, windows, dispatchCallbackEvent} = useContext(WindowManagerContext);
+    const useMouseTracker = useContext(MouseEventContext);
+    const windows = useContext(WindowContext);
+    const dispatchCallbackEvent = useContext(WindowEventContext);
+    
     const [bDragging, setDragging] = useState(false);
     const stateValid = windows[props.title] !== undefined
     const self = windows[props.title]

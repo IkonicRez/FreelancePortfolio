@@ -62,13 +62,14 @@ a {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  z-index: 9999999;
 }
 
 h1 {
   margin: 0;
   font-size: 2.25rem;
   font-weight:100;
-  text-shadow: var(--base-textshadow)
+  text-shadow: var(--base-textshadow);
 }
 
 nav a p {
