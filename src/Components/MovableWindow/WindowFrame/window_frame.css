@@ -28,10 +28,13 @@
     background: none;
     border: none;
     font-weight: 1000;
+    font-size: var(--window-button-textsize);
+    /* padding-top: 2svh; */
 }
 
 .window-content {
     padding: 5px;
+    font-size: var(--window-content-textsize);
 }
 
 .window-area {
@@ -44,6 +47,22 @@
     transition: transform 0.2s ease-in-out;
 }
 
+
 .window.minimized .window-header {
     justify-content: left;
 }
+/*Extra small devices (phones, 600px and down)*/
+@media only screen and (max-width: 600px) {
+    .window-content {
+        font-size: var(--window-content-textsize);
+    }
+}
+/*Small devices (portrait tablets and large phones, 600px and up)*/
+@media only screen and (min-width: 600px) {}
+/* Medium devices (landscape tablets, 768px and up)*/
+@media only screen and (min-width: 768px) {}
+/* Large devices (laptops/desktops, 992px and up)*/
+@media only screen and (min-width: 992px) {}
+/* Extra large devices (large laptops and desktops, 1200px and up)*/
+@media only screen and (min-width: 1200px) {}
+

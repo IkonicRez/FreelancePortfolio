@@ -35,14 +35,16 @@
         --h1-textsize: 4vw;
         --navlink-textsize: calc(8px + 2vmin);
         /* WINDOW */
-            --window-header-textsize: 1.75svw;
+            --window-header-textsize: 1.75rem;
+            --window-content-textsize: 1.1rem;
+            --window-button-textsize: 2svw;
     /* SPACING */
         --h1-margintop: 25vh;
         /* WINDOW */
             --window-header-margin: -4svw auto auto -4svw;
     /* BORDERS */
         /* WINDOW */
-            --window-border-border: 3svw solid rgb(0, 0, 0);
+            --window-border-border: 2.5svw solid rgb(0, 0, 0);
     /* TRANSFORM */
         /* WINDOW */
             --window-header-height: 3svw;
