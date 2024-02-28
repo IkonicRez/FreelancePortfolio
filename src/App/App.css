@@ -92,17 +92,75 @@ nav a:last-child:hover {
 /*Extra small devices (phones, 600px and down)*/
 @media only screen and (max-width: 600px) {
   h1{
-    font-size: calc(var(--h1-textsize) * 1);
+    font-size: calc(var(--h1-textsize) * 1.1);
   }
   nav a {
-    font-size: calc(var(--navlink-textsize) * 1);
+    font-size: calc(var(--navlink-textsize) * 1.1);
+  }
+  nav a:first-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.1 * 1.15)
+  }
+  nav a:last-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.1 * 1.125)
   }
 }
 /*Small devices (portrait tablets and large phones, 600px and up)*/
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+  h1{
+    font-size: calc(var(--h1-textsize) * 1.2);
+  }
+  nav a {
+    font-size: calc(var(--navlink-textsize) * 1.25);
+  }
+  nav a:first-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.25 * 1.15)
+  }
+  nav a:last-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.25 * 1.125)
+  }
+}
 /* Medium devices (landscape tablets, 768px and up)*/
-@media only screen and (min-width: 768px) {}
+@media only screen and (min-width: 768px) {
+  h1{
+    font-size: calc(var(--h1-textsize) * 1.1);
+  }
+  nav a {
+    font-size: calc(var(--navlink-textsize) * 1.25);
+  }
+  nav a:first-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.25 * 1.15)
+  }
+  nav a:last-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.25 * 1.125)
+  }
+}
 /* Large devices (laptops/desktops, 992px and up)*/
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+  h1{
+    font-size: calc(var(--h1-textsize) * 1.1);
+  }
+  nav a {
+    font-size: calc(var(--navlink-textsize) * 1.5);
+  }
+  nav a:first-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.5 * 1.15)
+  }
+  nav a:last-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.5 * 1.125)
+  }
+}
 /* Extra large devices (large laptops and desktops, 1200px and up)*/
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+  h1{
+    font-size: calc(var(--h1-textsize) / 1.5);
+  }
+  nav a {
+    font-size: calc(var(--navlink-textsize) * 1.25);
+  }
+  nav a:first-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.25 * 1.15)
+  }
+  nav a:last-child:hover {
+    font-size: calc(var(--navlink-textsize) * 1.25 * 1.125)
+  }
+}
