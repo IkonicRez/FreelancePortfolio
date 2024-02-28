@@ -1,6 +1,6 @@
-function _extends() {
+function extend() {
 
-    _extends = Object.assign || function (target) {
+    extend = Object.assign || function (target) {
 
         for (var i = 1; i < arguments.length; i++)
         {
@@ -28,7 +28,7 @@ function _extends() {
     };
 
 
-    return _extends.apply(this, arguments);
+    return extend.apply(this, arguments);
 
 }
 
@@ -269,7 +269,7 @@ function createBrowserHistory(options) {
 
                         // is going on and how to avoid it.
 
-                        "You are trying to block a POP navigation to a location that was not " + "created by the history library. The block will fail silently in " + "production, but in general you should do all navigation with the " + "history library (instead of using window.history.pushState directly) " + "to avoid this situation.") : void 0;
+                        "You are trying to block a POP navigation to a location that was not created by the history library. The block will fail silently in production, but in general you should do all navigation with the history library (instead of using window.history.pushState directly) to avoid this situation.") : void 0;
 
                 }
 
@@ -307,7 +307,7 @@ function createBrowserHistory(options) {
 
         index = 0;
 
-        globalHistory.replaceState(_extends({}, globalHistory.state, {
+        globalHistory.replaceState(extend({}, globalHistory.state, {
 
             idx: index
 
@@ -334,7 +334,7 @@ function createBrowserHistory(options) {
         }
 
 
-        return readOnly(_extends({
+        return readOnly(extend({
 
             pathname: location.pathname,
 

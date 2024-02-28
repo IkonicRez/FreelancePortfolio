@@ -1,0 +1,9 @@
+.window-minimzer {
+    position: absolute;
+    bottom: 0;
+    height: var(--window-header-height);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+}

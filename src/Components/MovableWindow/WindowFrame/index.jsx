@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect, useContext } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import { WindowManagerContext } from '../WindowManager/context/WindowManagerContext';
 import "./window_frame.css"
 
@@ -7,9 +7,10 @@ const WindowFrame = (props) => {
 
     const {useMouseTracker, windows, dispatchCallbackEvent} = useContext(WindowManagerContext);
     const [bDragging, setDragging] = useState(false);
-    const [bInitialized, setInitialized] = useState(false);
     const stateValid = windows[props.title] !== undefined
     const self = windows[props.title]
+
+    const isValueValid = (pos, minPos) => `${stateValid ? (self.minimized ? minPos : pos) : 0}px`
 
     const mousePosCallback = (mousePos, prevPos) => {
         if (bDragging) {
@@ -36,14 +37,6 @@ const WindowFrame = (props) => {
         })
     }, [props.title, dispatchCallbackEvent])
     
-    // const setElementPosition = (x, y) => {
-    //     let _x = (window.innerWidth / 100) * 3
-    //     return {
-    //         x: ((x - (props.size.width / 2)) - _x),
-    //         y: ((y - (props.size.height / 2)) - _x)
-    //     }
-    // }
-    
     const handleMouseDown = (e) => {
         e.preventDefault();
         dispatchEvent({ type: "focus" })
@@ -60,23 +53,14 @@ const WindowFrame = (props) => {
         dispatchEvent({ type: "minimize", minimized: !self.minimized })
     }
 
-    useLayoutEffect(() => {
-        if (!bInitialized) {
-            let element = document.getElementById(props.title)
-            let pos = {x: element.getBoundingClientRect().x  , y: element.getBoundingClientRect().y}
-            dispatchEvent({ type: "add", props: props, pos: pos })
-            setInitialized(true)
-        }
-    }, [bInitialized, props, dispatchEvent])
-
     return (
         <div
             className={`window ${stateValid ? (self.minimized ? 'minimized' : '') : ''}`}
             style={{ 
-                position: "absolute", 
+                position: stateValid ? (self.minimized ? "unset" : "absolute") : "absolute", 
                 zIndex: stateValid ? (self.focus ? 99 : 10) : 10,
-                top: `${stateValid ? (self.minimized ? self.minimizedPos.y : self.pos.y) : 0}px`, 
-                left: `${stateValid ? (self.minimized ? self.minimizedPos.x : self.pos.x) : 0}px`}}
+                transform: stateValid ? `translate(${isValueValid(self.pos.x, self.minimizedPos.x)}, ${isValueValid(self.pos.y, self.minimizedPos.y)})` : "none", 
+            }}
         >
             <div className="window-border">
                 <div className="window-header" 

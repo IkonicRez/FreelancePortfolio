@@ -1,23 +1,21 @@
-import React from 'react'
-import { WindowFrame } from '../../Components'
 import './team.css'
+import WindowPage from '../../Components/MovableWindow'
 
-export default function Team() {
 
-    return (
-        <>
-            <WindowFrame title="Random Title">
-                <p style={{margin: 0}}>Welcome to IR Freelance</p>
-            </WindowFrame>
-            <WindowFrame title="Test">
-                <p style={{margin: 0}}>Welcome to IR Freelance</p>
-            </WindowFrame>
-            <WindowFrame title="Showcase">
-                <p style={{margin: 0}}>Welcome to IR Freelance</p>
-            </WindowFrame>
-            <WindowFrame title="Showcase 1">
-                <p style={{margin: 0}}>Welcome to IR Freelance</p>
-            </WindowFrame>
-        </>
-    )
-}
+const Team = () => WindowPage([
+    {
+        title: "Callum",
+        content: "Partner, Head of Programming and Optimization"
+    },
+    {
+        title: "Mike",
+        content: "Partner, Head of Project Management and Communication, Full Stack Development"
+    },
+    {
+        title: "Ceasar",
+        content: "VFX, Graphic Designer, Web Designer"
+    }
+])
+
+
+export default Team;

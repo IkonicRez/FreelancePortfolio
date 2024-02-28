@@ -1,15 +1,15 @@
 import React from 'react'
 import { NavHeader, WindowManager } from '../../Components'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 
 export default function MainLayout() {
   return (
+    <>
+      <NavHeader title="IRFreelance"/>
       <WindowManager>
-        <NavHeader title="IRFreelance"/>
-        <div className='window-area'>
           <Outlet/>
-        </div>
       </WindowManager>
+    </>
   )
 }
