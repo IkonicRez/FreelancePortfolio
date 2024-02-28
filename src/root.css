@@ -52,7 +52,7 @@
             --window-border-minheight: 150px;
             --window-border-minwidth: 300px;
     /* MINIMIZED WINDOWS */
-        --minimized-space: 3px;
+        --minimized-space: 1px;
 }
 
 /* @font-face {

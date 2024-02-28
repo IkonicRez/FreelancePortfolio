@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react'
+import React, { useState, useCallback, useContext, useEffect } from 'react'
 import { MouseEventContext, WindowContext, WindowEventContext } from '../WindowManager/context/WindowManagerContext';
 import "./window_frame.css"
 

@@ -2,14 +2,18 @@
     WINDOW CONTAINER
 */
 
-.window-area {
+/* .window-area {
     position: relative;
     display: grid;
-}
+} */
 
 /*
     WINDOW
 */
+
+.window {
+    transition: transform 0.1 ease;
+}
 
 .window-border {
     min-height: var(--window-border-minheight);
@@ -62,8 +66,8 @@
 */
 
 .window.minimized {
+    padding: 1px;
     transition: transform 0.2s ease-in-out;
-    margin-left: var(--minimized-space);
 }
 
 .window.minimized .window-header {
@@ -76,14 +80,9 @@
     border: none;
     padding: 0.4svw;
     background-color: #2f4346;
-    box-shadow: 0 0 0 var(--minimized-space) var(--grey-shadow);
 }
 .window.minimized .window-content {
     display: none;
-}
-
-.window-minimizer :last-child .window-border {
-    box-shadow: none;
 }
 
 /*
