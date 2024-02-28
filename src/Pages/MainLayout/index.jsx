@@ -7,7 +7,7 @@ export default function MainLayout() {
   return (
     <>
       <NavHeader title="IRFreelance"/>
-      <WindowManager>
+      <WindowManager >
           <Outlet/>
       </WindowManager>
     </>

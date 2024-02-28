@@ -1,12 +1,12 @@
-import WindowPage from '../../Components/MovableWindow'
+import WindowProducer from '../../Components/MovableWindow/WindowProducer'
 
 
-const Home = () => WindowPage([
+const Home = () => WindowProducer([
     {
         title: "Welcome to IR Freelance",
         content: ""
     }
-])
+], "home")
 
 
 export default Home;
