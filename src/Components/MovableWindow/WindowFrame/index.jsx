@@ -30,6 +30,7 @@ const WindowFrame = (props) => {
     const dispatchEvent = useCallback((action) => {
         let type = action.type
         delete action.type
+        
         dispatchCallbackEvent({
             type: type,
             data: action,
@@ -70,7 +71,7 @@ const WindowFrame = (props) => {
                 >
                     <span className="unselectable">{props.title}</span>
                     <section>
-                        <button aria-label={"Minimize " + props.title} onClick={handleMinimize}>_</button>
+                        <button aria-label={"Minimize " + props.title} onClick={handleMinimize}>{!self.minimized ? "\u203E" : "\u25A2"}</button>
                     </section>
                 </div>
                 <div className="window-content">
