@@ -12,6 +12,7 @@
 
 .window-header {
     font-size: var(--window-header-textsize);
+    text-shadow: var(--header-textshadow);
     margin: var(--window-header-margin);
     height: var(--window-header-height);
     width: var(--window-header-width);
@@ -26,7 +27,6 @@
     color: var(--alt-text-color);
     background: none;
     border: none;
-    margin-bottom: 50px;
     font-weight: 1000;
 }
 

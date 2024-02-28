@@ -17,7 +17,7 @@ body {
   max-width: 100svw;
   min-width: 100svw;
   min-height: 100vh;
-  font-size: calc(10px + 2vmin);
+  
   background-color: var(--background-color);
   background-image: url('../assets/images/background.webp');
   background-size: cover;
@@ -37,7 +37,11 @@ header {
   height: min-content;
 }
 
-nav { display: flex; }
+nav { 
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
 
 nav * {
   text-decoration: none;
@@ -64,11 +68,41 @@ h1 {
   margin: 0;
   font-size: 2.25rem;
   font-weight:100;
+  text-shadow: var(--base-textshadow)
 }
 
 nav a p {
   margin: 0;
 }
 
+nav a {
+  font-size: var(--navlink-textsize);
+  transition: font-size 2s;
+  text-shadow: var(--navlink-textshadow)
+}
+nav a:first-child:hover {
+  font-size: calc(var(--navlink-textsize) * 1.15)
+}
+nav a:last-child:hover {
+  font-size: calc(var(--navlink-textsize) * 1.125)
+}
 
 
+
+/*Extra small devices (phones, 600px and down)*/
+@media only screen and (max-width: 600px) {
+  h1{
+    font-size: calc(var(--h1-textsize) * 1);
+  }
+  nav a {
+    font-size: calc(var(--navlink-textsize) * 1);
+  }
+}
+/*Small devices (portrait tablets and large phones, 600px and up)*/
+@media only screen and (min-width: 600px) {}
+/* Medium devices (landscape tablets, 768px and up)*/
+@media only screen and (min-width: 768px) {}
+/* Large devices (laptops/desktops, 992px and up)*/
+@media only screen and (min-width: 992px) {}
+/* Extra large devices (large laptops and desktops, 1200px and up)*/
+@media only screen and (min-width: 1200px) {}
