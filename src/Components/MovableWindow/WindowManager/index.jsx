@@ -1,18 +1,29 @@
 import React, { useCallback, useEffect, useReducer, useState, useRef } from "react";
 import { WindowManagerContext } from "./context/WindowManagerContext";
 import WindowFrame from "../WindowFrame";
-import { createBrowserHistory } from "../../../Utils/BrowserHistory";
 import './window_manager.css'
+
 
 export default function WindowManager(props) {
 
+    //Used to force a re-render at certain points. This solves issue #9 with re renders only triggering on mouse move.
     const [triggerRender, setTriggerRender] = useState(false)
+
+    //This is for better css control over indivual pages, value is set in the indivdual pages.
     const [currentPage, setCurrentPage] = useState("")
-    // This is how we add new options to the handler
-    // WindowFrames can run these switch statements and pass data to it for saving later
-    // all information from calling dispatchEvent will be in action.data
+
+    // This is used as part of the main React Reducer that allows the window system to work
+    // This allows other components in the structure to run events from this component easily
+    // These can be indivual functions but for simplicity is one large function.
+    // Example: 
+    // dispatchWindowEvent({type: "initialize", data: data})
+    // Any amount of items can be added to the object. 
+    // The object will come through as action and tasks will be the current state of the reducer.
+    // For our case tasks is a list of the object data we store for each window but could be any array of data.
+    // Each case must return a list of what tasks should become. This doesn't need to return tasks itself but tasks is mutable.
     function windowStateReducer(tasks, action) {
         switch (action.type) {
+            // Called on page load by the page. Adds all required windows for that page in a loop and sets currentPage to ensure proper css.
             case "initialize": {
                 action.data.forEach((v) => {
                     tasks[v.title] = {
@@ -30,27 +41,28 @@ export default function WindowManager(props) {
             }
             case "change": {
                 if (tasks[action.id] === undefined) return
+                //Add all keys and values from the action.data object to the specified tasks object.
                 Object.assign(tasks[action.id], action.data)
+                //Sets that the window has been moved. This is/will be used to stop windows moving back to their original position constantly.
                 tasks[action.id].moved = true;
-
                 return tasks
             }
             case "minimize": {
                 if (tasks[action.id] === undefined) return
+                //Add all keys and values from the action.data object to the specified tasks object.
                 Object.assign(tasks[action.id], action.data)
                 return tasks
             }
             case "focus": {
                 if (tasks[action.id] === undefined) return;
+                //Loops the windows and sets focus on the window firing the event and unfocuses all other windows
                 Object.keys(tasks).forEach((v, i) => {
-                    if (v === action.id) {
-                        tasks[v].focus = true;
-                    } else { 
-                        tasks[v].focus = false;
-                    }
+                    if (v === action.id) { tasks[v].focus = true }
+                    else { tasks[v].focus = false }
                 })
                 return tasks
             }
+            // Possible unused case now.
             case "reset": {
                 return {}
             }
@@ -60,16 +72,24 @@ export default function WindowManager(props) {
         }
     }
 
+    // Used to create an map of objects that should receive mouse events
     const subscribers = useRef(new Map()) 
     const [mousePos, setMousePos] = useState({x: 0, y: 0})
     const [prevPos, setPrevPos] = useState({ x: 0, y: 0});
+    // This creates the React Reducer. Similar to state but requires a function to be passed that is used to manipulate the data.
+    // This way we dont have to pass lots of functions down to unknown numbers of components
     const [windows, dispatchWindowEvent] = useReducer(windowStateReducer, {})
     
+    //This is what we actually pass components rather than dispatchWindowEvent to ensure re-renders when windows are updated.
     const dispatchCallbackEvent = useCallback(action => { 
         dispatchWindowEvent(action)
         setTriggerRender(!triggerRender)
     }, [triggerRender])
 
+    // Seems complicated but any component with the WindowManagerContext can call this function.
+    // Calling this will add the component to the subscribers list when it mounts and remove itself from the list when it is destroyed
+    // The useEffects inside this run inside the component calling the function when it is called. 
+    // Having an anonyomous function in a useEffect causes it to run on unmount.
     const useMouseTracker = callback => {
         const [id] = useState(new Date()); // This value is not 0, it's a system-wide per-component constant, guaranteed, tried and tested
       
@@ -88,6 +108,7 @@ export default function WindowManager(props) {
         useEffect(() => unsubscribe, [unsubscribe]);
     };
 
+    // Each subscriber runs this callback when the mouse moves
     const mouseMoveHandler = useCallback(event => {
         if (event) {
             if ((event.pageX !== mousePos.x) || (event.pageY !== mousePos.y)) {
@@ -100,6 +121,7 @@ export default function WindowManager(props) {
         }
     }, [mousePos, prevPos])
 
+    // Might reuse this for the later resizing code
     const handleResize = useCallback(event => {
         // var element;
         // var minimizedWindows = 0;
@@ -116,7 +138,23 @@ export default function WindowManager(props) {
         setTriggerRender(!triggerRender)
     }, [triggerRender])
 
+    // Returns a list of the window depending on if they are minimized or not
+    const getWindowsByMinimizedState = (getMinimized) => {
+        return Object.keys(windows).filter(v => {
+            return windows[v].minimized === getMinimized
+        }).map((v, i) => {
+            const d = windows[v]
+            return (
+                <WindowFrame title={v} key={i}>
+                    {d ? <p>{windows[v].content}</p> : ""} 
+                </WindowFrame>
+            )
+        })
+    }
 
+
+    // Adds and removes event listeners from this component on mount and unmount
+    // windows can be removed as a dependancy when the console log is removed
     useEffect(()=>{
         console.log(windows)
         window.addEventListener('mousemove', mouseMoveHandler);
@@ -135,31 +173,10 @@ export default function WindowManager(props) {
             <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
                 {props.children}
                 <div className="window-area">
-                    {
-                        Object.keys(windows).filter(v => {
-                            return windows[v].minimized !== true
-                        }).map((v, i) => {
-                            const d = windows[v]
-                            return (
-                                <WindowFrame title={v} key={i}>
-                                {d ? <p>{windows[v].content}</p> : ""} 
-                                </WindowFrame>
-                            )
-                        })
-                    }
+                    { getWindowsByMinimizedState(false) }
                 </div>
                 <div className="window-minimzer">
-                    {
-                        Object.keys(windows).filter((v) => {
-                            return windows[v].minimized === true
-                        }).map((v, i) => {
-                            return (
-                                <WindowFrame title={v} key={i}>
-                                    {windows[v].content}
-                                </WindowFrame>
-                            )
-                        })
-                    }
+                    { getWindowsByMinimizedState(true) }
                 </div>
             </WindowManagerContext.Provider>
         </section>
