@@ -10,10 +10,7 @@ const WindowFrame = (props) => {
     const stateValid = windows[props.title] !== undefined
     const self = windows[props.title]
 
-
-    const isValueValid = (pos, minPos) => {
-        return `${stateValid ? (self.minimized ? minPos : pos) : 0}px`
-    }
+    const isValueValid = (pos, minPos) => `${stateValid ? (self.minimized ? minPos : pos) : 0}px`
 
     const mousePosCallback = (mousePos, prevPos) => {
         if (bDragging) {
