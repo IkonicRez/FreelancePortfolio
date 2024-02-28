@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useMemo, useRef, useCallback, useContext } from 'react'
-import { WindowEventContext } from './WindowManager/context/WindowManagerContext'
+import React, { useState, useEffect } from 'react'
 
 
 const WindowMinimizer = (props) => {
 
     const [showScrollbar, setShowScrollbar] = useState(false)
-    const dispatchCallbackEvent = useContext(WindowEventContext)
 
+    // ADDING A USE EFFECT DEPEND ARRAY WILL BREAK THIS. A GOOD WAY TO TRIGGER THIS IS REQUIRED BEFORE ADDING A DEPEND LIST
+    // eslint-disable-next-line
     useEffect(() => {
         const minimizer = document.getElementsByClassName("window-minimizer")[0]
         if (minimizer !== undefined) setShowScrollbar(minimizer.scrollWidth > window.innerWidth)
-        
     })
 
     return (
@@ -18,7 +17,7 @@ const WindowMinimizer = (props) => {
             <div className={`window-minimizer ${showScrollbar}`}>
                 {props.children}
             </div>
-            <div className={`window-minimizer-scrollbar-container ${showScrollbar}`}></div>
+            <div className={`window-minimizer-scrollbar-container ${showScrollbar}`} aria-label="Container used to create space for the scrollbar"></div>
         </div>
     )
 

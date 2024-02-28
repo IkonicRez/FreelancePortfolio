@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import { MouseEventContext, WindowContext, WindowEventContext } from '../WindowManager/context/WindowManagerContext';
 import "./window_frame.css"
 
@@ -62,7 +62,7 @@ const WindowFrame = (props) => {
             className={`window ${stateValid ? (self.minimized ? 'minimized' : '') : ''}`}
             style={{ 
                 position: stateValid ? (self.minimized ? "unset" : "absolute") : "absolute", 
-                zIndex: stateValid ? (self.focus ? 99 : 10) : 10,
+                zIndex: stateValid ? self.minimizedIndex : 10,
                 transform: stateValid ? `translate(${isValueValid(self.pos.x, self.minimizedPos.x)}, ${isValueValid(self.pos.y, self.minimizedPos.y)})` : "none", 
             }}
         >

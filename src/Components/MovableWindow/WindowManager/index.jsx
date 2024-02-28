@@ -7,6 +7,7 @@ import WindowMinimizer from "../WindowMinimizer";
 
 export default function WindowManager(props) {
 
+    const [currentMinimizedIndex, setCurrentMinimizedIndex] = useState(1)
     //Used to force a re-render at certain points. This solves issue #9 with re renders only triggering on mouse move.
     const [triggerRender, setTriggerRender] = useState(false)
     //This is for better css control over indivual pages, value is set in the indivdual pages.
@@ -57,7 +58,10 @@ export default function WindowManager(props) {
                 if (tasks[action.id] === undefined) return;
                 //Loops the windows and sets focus on the window firing the event and unfocuses all other windows
                 Object.keys(tasks).forEach((v, i) => {
-                    if (v === action.id) { tasks[v].focus = true }
+                    if (v === action.id) { 
+                        setCurrentMinimizedIndex(currentMinimizedIndex + 1)
+                        tasks[v].minimizedIndex = currentMinimizedIndex
+                        tasks[v].focus = true }
                     else { tasks[v].focus = false }
                 })
                 return tasks

@@ -16,6 +16,7 @@
 }
 
 .window-border {
+    max-width: 35svw;
     min-height: var(--window-border-minheight);
     min-width: var(--window-border-minwidth);
     width: max-content;
@@ -72,11 +73,13 @@
 
 .window.minimized .window-header {
     justify-content: left;
+    width: unset;
     margin: 0;
 }
 
 .window.minimized .window-border {
     min-width: unset;
+    max-width: unset;
     border: none;
     padding: 0.4svw;
     background-color: #2f4346;
