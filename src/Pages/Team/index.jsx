@@ -8,7 +8,7 @@ const Team = () => WindowProducer([
         content: "Partner, Head of Programming and Optimization"
     },
     {
-        title: "Mike",
+        title: "Michael",
         content: "Partner, Head of Project Management and Communication, Full Stack Development"
     },
     {

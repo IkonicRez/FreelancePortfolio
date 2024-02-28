@@ -43,10 +43,14 @@
 }
 
 .window.minimized {
+    width: min-content;
     transition: transform 0.2s ease-in-out;
 }
 
 
+.window.minimized .window-header {
+    justify-content: left;
+}
 /*Extra small devices (phones, 600px and down)*/
 @media only screen and (max-width: 600px) {
     .window-content {
@@ -61,3 +65,4 @@
 @media only screen and (min-width: 992px) {}
 /* Extra large devices (large laptops and desktops, 1200px and up)*/
 @media only screen and (min-width: 1200px) {}
+

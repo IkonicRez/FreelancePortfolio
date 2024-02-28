@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useReducer, useState, useRef } from "react";
-import { WindowManagerContext } from "./context/WindowManagerContext";
+import { WindowContext, WindowEventContext, MouseEventContext } from "./context/WindowManagerContext";
 import WindowFrame from "../WindowFrame";
 import './window_manager.css'
 
@@ -170,15 +170,19 @@ export default function WindowManager(props) {
             className={props.className ? "movable-window-area" + props.className : "movable-window-area"} 
             id={`default-movable-area ${currentPage}`}
         >   
-            <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
-                {props.children}
-                <div className="window-area">
-                    { getWindowsByMinimizedState(false) }
-                </div>
-                <div className="window-minimzer">
-                    { getWindowsByMinimizedState(true) }
-                </div>
-            </WindowManagerContext.Provider>
+            <WindowContext.Provider value={windows}>
+                <WindowEventContext.Provider value={dispatchCallbackEvent}>
+                    <MouseEventContext.Provider value={useMouseTracker}>
+                        {props.children}
+                        <div className="window-area">
+                            { getWindowsByMinimizedState(false) }
+                        </div>
+                        <div className="window-minimzer">
+                            { getWindowsByMinimizedState(true) }
+                        </div>
+                    </MouseEventContext.Provider>
+                </WindowEventContext.Provider>
+            </WindowContext.Provider>
         </section>
     );
 
