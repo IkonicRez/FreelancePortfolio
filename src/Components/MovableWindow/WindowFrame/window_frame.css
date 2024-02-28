@@ -1,11 +1,13 @@
 .window-border {
     min-height: var(--window-border-minheight);
+    min-width: var(--window-border-minwidth);
     width: max-content;
     border: var(--window-border-border);
     background-color: var(--window-border-background);
     border-image: url('../WindowFrame/window_border.png') calc(128/3) round;
     box-shadow: var(--window-border-boxshadow);
     padding: 1svw;
+    transition: width 2, height 2s, transform 2s, position 2s;
 }
 
 .window-header {
@@ -16,6 +18,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.window-header > section > button {
+    background-color: rgba(0, 0, 0, 0.146);
+    border: 1px solid rgba(255, 255, 255, 0.161);
+    color: var(--alt-text-color);
+    background: none;
+    border: none;
+    margin-bottom: 50px;
+    font-weight: 1000;
+}
+
+.window-content {
+    padding: 5px;
 }
 
 .window-area {
