@@ -72,6 +72,14 @@ h1 {
   text-shadow: var(--base-textshadow);
 }
 
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
 nav a p {
   margin: 0;
 }
@@ -81,14 +89,67 @@ nav a {
   transition: font-size 0.2s ease-in-out;
   text-shadow: var(--navlink-textshadow)
 }
+
 nav a:first-child:hover {
   font-size: calc(var(--navlink-textsize) * 1.15)
 }
+
 nav a:last-child:hover {
   font-size: calc(var(--navlink-textsize) * 1.125)
 }
 
+.modal-main {
+  /* display: none; */
+  /* opacity: 0; */
+  border-radius: 10px;
+  width: 90svw;
+  height: 80svh;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 2svh 5svw 2svh 5svw;
+  transition: box-shadow 1s, opacity 1s;
+}
 
+#modal-submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 7svw;
+}
+
+.modal-main-show {
+  display: inherit;
+  opacity: 100;
+  box-shadow: 500px 500px 500px 500px rgba(0, 0, 0, 0.561)
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  margin-right: 1svw;
+}
+
+.modal-content {
+  margin-top: 5svh;
+}
+
+.modal-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10svh;
+}
+
+.modal-input-field {
+  margin: 2svh 25svw auto 25svw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-input-field > input {
+  width: 25svw
+}
 
 /*Extra small devices (phones, 600px and down)*/
 @media only screen and (max-width: 600px) {

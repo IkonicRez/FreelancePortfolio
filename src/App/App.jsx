@@ -10,6 +10,7 @@ import { GenericNotFound } from '../Components';
 
 
 function App() {
+  
   return (
     <BrowserRouter>
       <Routes>
