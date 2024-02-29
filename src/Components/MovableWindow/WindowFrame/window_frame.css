@@ -69,12 +69,15 @@
 .window.minimized {
     padding: 1px;
     transition: transform 0.2s ease-in-out;
+    box-shadow: inset 2px 2px 2px 2px rgba(0, 234, 255, 0.376);
+
 }
 
 .window.minimized .window-header {
     justify-content: left;
     width: unset;
     margin: 0;
+    
 }
 
 .window.minimized .window-border {
