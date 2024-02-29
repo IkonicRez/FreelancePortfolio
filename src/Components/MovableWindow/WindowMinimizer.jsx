@@ -13,11 +13,8 @@ const WindowMinimizer = (props) => {
     })
 
     return (
-        <div className="window-minimizer-container">
-            <div className={`window-minimizer ${showScrollbar}`}>
-                {props.children}
-            </div>
-            <div className={`window-minimizer-scrollbar-container ${showScrollbar}`}></div>
+        <div className={`window-minimizer ${showScrollbar}`}>
+            {props.children}
         </div>
     )
 

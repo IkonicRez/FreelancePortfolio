@@ -7,11 +7,22 @@ import WindowMinimizer from "../WindowMinimizer";
 
 export default function WindowManager(props) {
 
-    const [currentMinimizedIndex, setCurrentMinimizedIndex] = useState(1)
+    const [currentFocusIndex, setCurrentFocusIndex] = useState(1)
     //Used to force a re-render at certain points. This solves issue #9 with re renders only triggering on mouse move.
     const [triggerRender, setTriggerRender] = useState(false)
     //This is for better css control over indivual pages, value is set in the indivdual pages.
     const [currentPage, setCurrentPage] = useState("")
+
+    const getInitPos = (id, x, y, columns, rows) => {
+        const elem = document.getElementById(id)
+        if (elem === undefined) return {x: 0, y: 0}
+        --x;
+        --y;
+        return {
+            x: x <= 0 ? 0 : (window.innerWidth / columns) * x,
+            y: y <= 0 ? 0 : (window.innerHeight / rows) * y
+        }
+    }
 
     // This is used as part of the main React Reducer that allows the window system to work
     // This allows other components in the structure to run events from this component easily
@@ -29,11 +40,11 @@ export default function WindowManager(props) {
                 action.data.forEach((v) => {
                     tasks[v.title] = {
                         content: v.content,
-                        pos: {x: 0, y: 0},
+                        pos: getInitPos(v.title, v.col, v.row, action.col, action.row),
                         moved: false,
                         minimized: false,
-                        minimizedIndex: 0,
                         minimizedPos: {x: 0, y: 0},
+                        focusIndex: currentFocusIndex,
                         focus: false
                     }
                 })
@@ -41,9 +52,7 @@ export default function WindowManager(props) {
                 return tasks
             }
             case "minimizeAll": {
-                Object.keys(tasks).forEach((v, i) => {
-                    tasks[v].minimized = true
-                })
+                Object.keys(tasks).forEach((v, i) => tasks[v].minimized = true)
                 return tasks
             }
             case "change": {
@@ -65,9 +74,10 @@ export default function WindowManager(props) {
                 //Loops the windows and sets focus on the window firing the event and unfocuses all other windows
                 Object.keys(tasks).forEach((v, i) => {
                     if (v === action.id) { 
-                        setCurrentMinimizedIndex(currentMinimizedIndex + 1)
-                        tasks[v].minimizedIndex = currentMinimizedIndex
-                        tasks[v].focus = true }
+                        setCurrentFocusIndex(currentFocusIndex + 1)
+                        tasks[v].focusIndex = currentFocusIndex
+                        tasks[v].focus = true 
+                    }
                     else { tasks[v].focus = false }
                 })
                 return tasks
@@ -133,26 +143,18 @@ export default function WindowManager(props) {
 
     // Might reuse this for the later resizing code
     const handleResize = useCallback(event => {
-        // var element;
-        // var minimizedWindows = 0;
-        // Object.keys(windows).forEach((v, i) => {
-        //     if (windows[v].minimized === true) {
-        //         element = document.getElementById(v)
-        //         windows[v].minimizedPos = {
-        //             x: 0 + (element.getBoundingClientRect().width * minimizedWindows),
-        //             y: window.innerHeight - (element.getBoundingClientRect().height)
-        //         }
-        //         minimizedWindows += 1
-        //     }
-        // })
         setTriggerRender(!triggerRender)
     }, [triggerRender])
 
     // Returns a list of the window depending on if they are minimized or not
     const getWindowsByMinimizedState = (getMinimized) => {
-        return Object.keys(windows).filter(v => {
-            return windows[v].minimized === getMinimized
-        }).map((v, i) => {
+        console.log(windows)
+        console.log(Object.keys(windows).filter(
+            v => windows[v].minimized === getMinimized
+        ).map((v, i) => {return v}))
+        return Object.keys(windows).filter(
+            v => windows[v].minimized === getMinimized
+        ).map((v, i) => {
             const d = windows[v]
             return (
                 <WindowFrame title={v} key={i}>

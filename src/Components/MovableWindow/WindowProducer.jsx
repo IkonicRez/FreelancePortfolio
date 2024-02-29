@@ -3,7 +3,7 @@ import { WindowEventContext } from './WindowManager/context/WindowManagerContext
 
 
 // This is what we use to create pages. This can be passed an array of the windows data and will run the necessary event to generate them.
-const WindowProducer = (data, title) => {
+const WindowProducer = (data, col, row, title) => {
     if (title === undefined) title = ""
     const [bInitialized, setInitialized] = useState(false);
     const dispatchCallbackEvent = useContext(WindowEventContext)
@@ -15,11 +15,13 @@ const WindowProducer = (data, title) => {
             {
                 type:"initialize", 
                 data: data,
-                title: title
+                title: title,
+                col: col,
+                row: row
             }
         )
         setInitialized(true)
-    }, [dispatchCallbackEvent, data, title])
+    }, [dispatchCallbackEvent, data, title, col, row])
 
     useEffect(() => {
         if (!bInitialized) {

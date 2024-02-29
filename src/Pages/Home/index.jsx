@@ -4,9 +4,11 @@ import WindowProducer from '../../Components/MovableWindow/WindowProducer'
 const Home = () => WindowProducer([
     {
         title: "Welcome to IR Freelance",
-        content: ""
+        content: "",
+        col: 1,
+        row: 1
     }
-], "home")
+], 1, 1, "home")
 
 
 export default Home;
