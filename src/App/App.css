@@ -78,7 +78,7 @@ nav a p {
 
 nav a {
   font-size: var(--navlink-textsize);
-  transition: font-size 2s;
+  transition: font-size 0.2s ease-in-out;
   text-shadow: var(--navlink-textshadow)
 }
 nav a:first-child:hover {

@@ -2,13 +2,14 @@ import React, { useCallback, useEffect, useReducer, useState, useRef } from "rea
 import { WindowContext, WindowEventContext, MouseEventContext } from "./context/WindowManagerContext";
 import WindowFrame from "../WindowFrame";
 import './window_manager.css'
+import WindowMinimizer from "../WindowMinimizer";
 
 
 export default function WindowManager(props) {
 
+    const [currentMinimizedIndex, setCurrentMinimizedIndex] = useState(1)
     //Used to force a re-render at certain points. This solves issue #9 with re renders only triggering on mouse move.
     const [triggerRender, setTriggerRender] = useState(false)
-
     //This is for better css control over indivual pages, value is set in the indivdual pages.
     const [currentPage, setCurrentPage] = useState("")
 
@@ -39,6 +40,12 @@ export default function WindowManager(props) {
                 setCurrentPage(action.title)
                 return tasks
             }
+            case "minimizeAll": {
+                Object.keys(tasks).forEach((v, i) => {
+                    tasks[v].minimized = true
+                })
+                return tasks
+            }
             case "change": {
                 if (tasks[action.id] === undefined) return
                 //Add all keys and values from the action.data object to the specified tasks object.
@@ -57,7 +64,10 @@ export default function WindowManager(props) {
                 if (tasks[action.id] === undefined) return;
                 //Loops the windows and sets focus on the window firing the event and unfocuses all other windows
                 Object.keys(tasks).forEach((v, i) => {
-                    if (v === action.id) { tasks[v].focus = true }
+                    if (v === action.id) { 
+                        setCurrentMinimizedIndex(currentMinimizedIndex + 1)
+                        tasks[v].minimizedIndex = currentMinimizedIndex
+                        tasks[v].focus = true }
                     else { tasks[v].focus = false }
                 })
                 return tasks
@@ -152,11 +162,9 @@ export default function WindowManager(props) {
         })
     }
 
-
     // Adds and removes event listeners from this component on mount and unmount
     // windows can be removed as a dependancy when the console log is removed
     useEffect(()=>{
-        console.log(windows)
         window.addEventListener('mousemove', mouseMoveHandler);
         window.addEventListener('resize', handleResize);
         return () => {
@@ -177,9 +185,9 @@ export default function WindowManager(props) {
                         <div className="window-area">
                             { getWindowsByMinimizedState(false) }
                         </div>
-                        <div className="window-minimzer">
+                        <WindowMinimizer>
                             { getWindowsByMinimizedState(true) }
-                        </div>
+                        </WindowMinimizer>
                     </MouseEventContext.Provider>
                 </WindowEventContext.Provider>
             </WindowContext.Provider>

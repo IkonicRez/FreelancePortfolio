@@ -1,4 +1,22 @@
+/*
+    WINDOW CONTAINER
+*/
+
+/* .window-area {
+    position: relative;
+    display: grid;
+} */
+
+/*
+    WINDOW
+*/
+
+.window {
+    transition: transform 0.1 ease;
+}
+
 .window-border {
+    max-width: 35svw;
     min-height: var(--window-border-minheight);
     min-width: var(--window-border-minwidth);
     width: max-content;
@@ -10,13 +28,17 @@
     transition: width 2, height 2s, transform 2s, position 2s;
 }
 
+/*
+    WINDOW HEADER
+*/
+
 .window-header {
     font-size: var(--window-header-textsize);
     text-shadow: var(--header-textshadow);
     margin: var(--window-header-margin);
-    height: var(--window-header-height);
     width: var(--window-header-width);
     display: flex;
+    text-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -29,28 +51,47 @@
     border: none;
     font-weight: 1000;
     font-size: var(--window-button-textsize);
-    /* padding-top: 2svh; */
 }
+
+/*
+    WINDOW CONTENT
+*/
 
 .window-content {
     padding: 5px;
     font-size: var(--window-content-textsize);
 }
 
-.window-area {
-    position: relative;
-    display: grid;
-}
+/*
+    MINIMZED WINDOWS
+*/
 
 .window.minimized {
-    width: min-content;
+    padding: 1px;
     transition: transform 0.2s ease-in-out;
 }
 
-
 .window.minimized .window-header {
     justify-content: left;
+    width: unset;
+    margin: 0;
 }
+
+.window.minimized .window-border {
+    min-width: unset;
+    max-width: unset;
+    border: none;
+    padding: 0.4svw;
+    background-color: #2f4346;
+}
+.window.minimized .window-content {
+    display: none;
+}
+
+/*
+    MEDIA QUERIES
+*/
+
 /*Extra small devices (phones, 600px and down)*/
 @media only screen and (max-width: 600px) {
     .window-content {

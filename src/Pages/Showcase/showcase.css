@@ -2,8 +2,6 @@
     grid-template-columns: repeat(2, [col-start] 1fr);
     grid-template-rows: repeat(2, [row-start] 1fr);
     gap: 2%;
-    /* padding: 2%; */
-    width: 96%;
     height: 90svh;
 }
 

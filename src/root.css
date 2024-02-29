@@ -41,16 +41,18 @@
     /* SPACING */
         --h1-margintop: 25vh;
         /* WINDOW */
-            --window-header-margin: -4svw auto auto -4svw;
+            --window-header-margin: -3.5svw auto auto -3.5svw;
     /* BORDERS */
         /* WINDOW */
             --window-border-border: 2.5svw solid rgb(0, 0, 0);
     /* TRANSFORM */
         /* WINDOW */
             --window-header-height: 3svw;
-            --window-header-width: calc(100% + 8svw);
+            --window-header-width: calc(100% + 7svw);
             --window-border-minheight: 150px;
             --window-border-minwidth: 300px;
+    /* MINIMIZED WINDOWS */
+        --minimized-space: 1px;
 }
 
 /* @font-face {
