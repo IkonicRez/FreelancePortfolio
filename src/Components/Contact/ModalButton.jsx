@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ContactModal from './ContactModal'
 
 const ModalButton = () => {
 
+  const [modalVisible, setModalVisible] = useState(false)
 
-  return (
+  const toggleModal = () => setModalVisible(!modalVisible)
+
+  return (  
     <div className='contact-modal'>
-      <h1>React Modal</h1>
-      <button type="button" onClick={this.showModal}>Open</button>
+      {
+        modalVisible ? 
+          <ContactModal toggle={toggleModal}/> 
+          : 
+          <button type="button" onClick={toggleModal} value="Open">Open</button>
+        }
+      
     </div>
   )
 }
