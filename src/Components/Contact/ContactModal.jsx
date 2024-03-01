@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const ContactModal = () => {
+const ContactModal = ({toggle}) => {
+  
+  useEffect(() => {
+    const budgetSliderElement = document.getElementById("budget")
+    if (budgetSliderElement === undefined) return
+    budgetSliderElement.addEventListener("input", () => {
+      console.log("trigger")
+      document.getElementById('budget-value').innerHTML = budgetSliderElement.value
+    })
+  })
+
     // const showHideClassName = show ? "modal display-block" : "modal display-none"
   return (
-    <div>
         <section className='modal-main'>
           <div className='modal-header'>
-            <button type="button" >
+            <button type="button" onClick={toggle}>
                 X
             </button>
           </div>
@@ -32,7 +41,8 @@ const ContactModal = () => {
                   </datalist> 
               </div>     
               <div className='modal-input-field'>
-              Budget Range:<input type="range" name="budget" id="budget" min="100" max="30000" step="50" />
+                Budget Range:<p id="budget-value">{document.getElementById("budget") === undefined ? document.getElementById("budget").value : 100}</p>
+                <input type="range" name="budget" id="budget" min="100" max="30000" step="50"/>
               </div>
             </div>
           </section>
@@ -40,7 +50,6 @@ const ContactModal = () => {
             <button type='submit'>Submit</button>
           </div>
         </section>
-    </div>
   )
 }
 

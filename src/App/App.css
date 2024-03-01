@@ -98,6 +98,17 @@ nav a:last-child:hover {
   font-size: calc(var(--navlink-textsize) * 1.125)
 }
 
+.contact-modal {
+  width: 100svw;
+  height: 100svh;
+  position: absolute;
+  z-index: 9999999;
+  background: transparent; /* IE */
+  pointer-events: none; /* Other browsers */ 
+}
+
+.contact-modal * { pointer-events: auto; } /* Makes child elements clickable again */
+
 .modal-main {
   /* display: none; */
   /* opacity: 0; */
