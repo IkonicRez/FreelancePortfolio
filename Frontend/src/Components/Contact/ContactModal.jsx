@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
-const ContactModal = ({toggle}) => {
+
+const ContactModal = ({toggle, className}) => {
   
   useEffect(() => {
     const budgetSliderElement = document.getElementById("budget")
@@ -11,9 +12,8 @@ const ContactModal = ({toggle}) => {
     })
   })
 
-    // const showHideClassName = show ? "modal display-block" : "modal display-none"
   return (
-        <section className='modal-main'>
+        <section className={`modal-main ${className}`}>
           <div className='modal-header'>
             <button type="button" onClick={toggle}>
                 X

@@ -1,9 +1,22 @@
-.window-minimzer {
+.window-minimizer {
     position: absolute;
     bottom: 0;
     height: var(--window-header-height);
-    width: 100%;
+    width: 100svw;
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.window-minimizer.true{
+    padding-bottom: 30px
+}
+
+.window-minimizer-container {
+    padding: 0;
+}
+
+.window-minimizer-scrollbar-container {
+    padding: 0;
 }

@@ -71,13 +71,22 @@ a {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  z-index: 9999999;
 }
 
 h1 {
   margin: 0;
   font-size: 2.25rem;
   font-weight:100;
-  text-shadow: var(--base-textshadow)
+  text-shadow: var(--base-textshadow);
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
 }
 
 nav a p {
@@ -92,11 +101,21 @@ nav a {
 nav a:first-child:hover {
   font-size: calc(var(--navlink-textsize) * 1.15)
 }
+
+nav a:first-child:hover {
+  font-size: calc(var(--navlink-textsize) * 1.15)
+}
+
 nav a:last-child:hover {
   font-size: calc(var(--navlink-textsize) * 1.125)
 }
 
-
+.contact-modal {
+  position: absolute;
+  z-index: 9999999;
+  background: transparent; /* IE */
+  pointer-events: none; /* Other browsers */ 
+}
 
 .contact-modal * { pointer-events: auto; } /* Makes child elements clickable again */
 
@@ -109,6 +128,14 @@ nav a:last-child:hover {
   background-color: rgba(0, 0, 0, 0.8);
   margin: 2svh 5svw 2svh 5svw;
   transition: box-shadow 1s, opacity 1s;
+  box-shadow: 500px 500px 500px 500px rgba(0, 0, 0, 0.561);
+  opacity: 0;
+}
+.modal-main.show {
+  width: 90svw;
+  height: 80svh;
+  margin: 2svh 5svw 2svh 5svw;
+  opacity: 100;
 }
 
 #modal-submit {
@@ -117,6 +144,7 @@ nav a:last-child:hover {
   justify-content: center;
   margin-top: 4svh;
   /* width: 7svw; */
+  width: 7svw;
 }
 
 .modal-main-show {
@@ -153,7 +181,6 @@ nav a:last-child:hover {
 .modal-input-field > input {
   width: 25svw
 }
-
 
 /*Extra small devices (phones, 600px and down)*/
 @media only screen and (max-width: 600px) {

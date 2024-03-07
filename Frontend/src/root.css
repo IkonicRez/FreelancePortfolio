@@ -51,6 +51,9 @@
             --window-header-width: calc(100% + 8svw);
             --window-border-minheight: 150px;
             --window-border-minwidth: 300px;
+
+    /* MINIMIZED WINDOWS */
+        --minimized-space: 1px;
 }
 
 /* @font-face {
