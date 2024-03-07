@@ -5,6 +5,7 @@ import "./window_frame.css"
 
 const WindowFrame = (props) => {
 
+
     const useMouseTracker = useContext(MouseEventContext);
     const windows = useContext(WindowContext);
     const dispatchCallbackEvent = useContext(WindowEventContext);
@@ -62,6 +63,7 @@ const WindowFrame = (props) => {
             className={`window ${stateValid ? (self.minimized ? 'minimized' : '') : ''}`}
             style={{ 
                 position: stateValid ? (self.minimized ? "unset" : "absolute") : "absolute", 
+
                 zIndex: stateValid ? self.minimizedIndex : 10,
                 transform: stateValid ? `translate(${isValueValid(self.pos.x, self.minimizedPos.x)}, ${isValueValid(self.pos.y, self.minimizedPos.y)})` : "none", 
             }}

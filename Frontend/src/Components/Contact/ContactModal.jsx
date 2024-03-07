@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+
 const ContactModal = ({toggle, className}) => {
   
   useEffect(() => {
@@ -11,7 +12,6 @@ const ContactModal = ({toggle, className}) => {
     })
   })
 
-    // const showHideClassName = show ? "modal display-block" : "modal display-none"
   return (
         <section className={`modal-main ${className}`}>
           <div className='modal-header'>

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useReducer, useState, useRef } from "react";
+
 import { WindowContext, WindowEventContext, MouseEventContext } from "./context/WindowManagerContext";
 import WindowFrame from "../WindowFrame";
 import './window_manager.css'
@@ -7,9 +8,11 @@ import WindowMinimizer from "../WindowMinimizer";
 
 export default function WindowManager(props) {
 
-    const [currentMinimizedIndex, setCurrentMinimizedIndex] = useState(1)
     //Used to force a re-render at certain points. This solves issue #9 with re renders only triggering on mouse move.
     const [triggerRender, setTriggerRender] = useState(false)
+
+    const [currentMinimizedIndex, setCurrentMinimizedIndex] = useState(1)
+
     //This is for better css control over indivual pages, value is set in the indivdual pages.
     const [currentPage, setCurrentPage] = useState("")
 
@@ -40,6 +43,7 @@ export default function WindowManager(props) {
                 setCurrentPage(action.title)
                 return tasks
             }
+
             case "minimizeAll": {
                 Object.keys(tasks).forEach((v, i) => {
                     tasks[v].minimized = true
@@ -162,6 +166,7 @@ export default function WindowManager(props) {
         })
     }
 
+
     // Adds and removes event listeners from this component on mount and unmount
     // windows can be removed as a dependancy when the console log is removed
     useEffect(()=>{
@@ -178,6 +183,15 @@ export default function WindowManager(props) {
             className={props.className ? "movable-window-area" + props.className : "movable-window-area"} 
             id={`default-movable-area ${currentPage}`}
         >   
+            <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
+                {props.children}
+                <div className="window-area">
+                    { getWindowsByMinimizedState(false) }
+                </div>
+                <div className="window-minimzer">
+                    { getWindowsByMinimizedState(true) }
+                </div>
+            </WindowManagerContext.Provider>
             <WindowContext.Provider value={windows}>
                 <WindowEventContext.Provider value={dispatchCallbackEvent}>
                     <MouseEventContext.Provider value={useMouseTracker}>

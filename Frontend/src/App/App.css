@@ -28,6 +28,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+nav * p:hover {
+  background-color: #0561473d;
+  border-radius: 12px;
+}
+h1:hover {
+  background-color: #0561473d;
+  border-radius: 12px;
+}
+
 header {
   display: flex;
   flex-direction: row;
@@ -86,8 +95,11 @@ nav a p {
 
 nav a {
   font-size: var(--navlink-textsize);
-  transition: font-size 0.2s ease-in-out;
+  transition: font-size 2s;
   text-shadow: var(--navlink-textshadow)
+}
+nav a:first-child:hover {
+  font-size: calc(var(--navlink-textsize) * 1.15)
 }
 
 nav a:first-child:hover {
@@ -108,11 +120,13 @@ nav a:last-child:hover {
 .contact-modal * { pointer-events: auto; } /* Makes child elements clickable again */
 
 .modal-main {
+  /* display: none; */
+  /* opacity: 0; */
   border-radius: 10px;
-  width: 0px;
-  height: 0px;
-  margin: 0;
+  width: 90svw;
+  height: 80svh;
   background-color: rgba(0, 0, 0, 0.8);
+  margin: 2svh 5svw 2svh 5svw;
   transition: box-shadow 1s, opacity 1s;
   box-shadow: 500px 500px 500px 500px rgba(0, 0, 0, 0.561);
   opacity: 0;
@@ -128,6 +142,8 @@ nav a:last-child:hover {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 4svh;
+  /* width: 7svw; */
   width: 7svw;
 }
 
@@ -241,3 +257,5 @@ nav a:last-child:hover {
     font-size: calc(var(--navlink-textsize) * 1.25 * 1.125)
   }
 }
+
+
