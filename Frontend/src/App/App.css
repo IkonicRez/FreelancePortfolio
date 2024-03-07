@@ -97,8 +97,7 @@ nav a:last-child:hover {
 }
 
 
-<<<<<<< Updated upstream:src/App/App.css
-=======
+
 .contact-modal * { pointer-events: auto; } /* Makes child elements clickable again */
 
 .modal-main {
@@ -154,7 +153,7 @@ nav a:last-child:hover {
 .modal-input-field > input {
   width: 25svw
 }
->>>>>>> Stashed changes:Frontend/src/App/App.css
+
 
 /*Extra small devices (phones, 600px and down)*/
 @media only screen and (max-width: 600px) {
