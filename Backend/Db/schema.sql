@@ -1,0 +1,11 @@
+DROP DATABASE IF EXISTS IRFContact_db;
+
+CREATE DATABASE IRFContact_db;
+
+USE IRFContact_db;
+
+SHOW DATABASES;
+
+USE IRFContact_db;
+
+SHOW TABLES;

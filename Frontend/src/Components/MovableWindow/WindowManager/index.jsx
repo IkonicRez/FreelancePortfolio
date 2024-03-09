@@ -183,7 +183,7 @@ export default function WindowManager(props) {
             className={props.className ? "movable-window-area" + props.className : "movable-window-area"} 
             id={`default-movable-area ${currentPage}`}
         >   
-            <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
+            {/* <WindowManagerContext.Provider value={{useMouseTracker, windows, dispatchCallbackEvent}}>
                 {props.children}
                 <div className="window-area">
                     { getWindowsByMinimizedState(false) }
@@ -191,7 +191,7 @@ export default function WindowManager(props) {
                 <div className="window-minimzer">
                     { getWindowsByMinimizedState(true) }
                 </div>
-            </WindowManagerContext.Provider>
+            </WindowManagerContext.Provider> */}
             <WindowContext.Provider value={windows}>
                 <WindowEventContext.Provider value={dispatchCallbackEvent}>
                     <MouseEventContext.Provider value={useMouseTracker}>
