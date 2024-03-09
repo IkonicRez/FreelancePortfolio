@@ -115,9 +115,25 @@ nav a:last-child:hover {
   z-index: 9999999;
   background: transparent; /* IE */
   pointer-events: none; /* Other browsers */ 
+
 }
 
 .contact-modal * { pointer-events: auto; } /* Makes child elements clickable again */
+
+.modal-close {
+  margin-top: 1.5svh
+}
+
+.modal-btn {
+  border-radius: 8px;
+}
+
+.contact-modal * input, .modal-btn {
+  background-color: var(--grey-shadow);
+  border-color: var(--alt-text-color);
+  color: var(--light-text-color);
+  box-shadow: 1px 1px 1px rgba(0, 238, 255, 0.619), 1px 1px 1px rgba(0, 238, 255, 0.619);
+}
 
 .modal-main {
   /* display: none; */
@@ -137,6 +153,8 @@ nav a:last-child:hover {
   height: 80svh;
   margin: 2svh 5svw 2svh 5svw;
   opacity: 100;
+  box-shadow: -1px -1px rgba(0, 238, 255, 0.378), 1px 1px rgba(0, 238, 255, 0.378);
+
 }
 
 .submit-btn-container {
