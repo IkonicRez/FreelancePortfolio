@@ -51,7 +51,7 @@ const ContactModal = ({ toggle, className }) => {
   return (
     <section className={`modal-main ${className}`}>
       <div className='modal-header'>
-        <button type="button" onClick={toggle}>X</button>
+        <button className='modal-btn modal-close' type="button" onClick={toggle}>X</button>
       </div>
       <section className='modal-content'>
         <h2>Thanks for choosing us to make your project a reality!</h2>
@@ -79,7 +79,9 @@ const ContactModal = ({ toggle, className }) => {
               Budget Range:<p id="budget-value">{clientBudget}</p>
               <input type="range" name="budget" value={clientBudget} id="budget" onChange={(e) => setClientBudget(parseInt(e.target.value))} min="100" max="30000" step="50" />
             </div>
-            <button type='submit'>Submit</button>
+            <div className='submit-btn-container'>
+              <button className='modal-btn' type='submit'>Submit</button>
+            </div>
           </form>
         </div>
       </section>

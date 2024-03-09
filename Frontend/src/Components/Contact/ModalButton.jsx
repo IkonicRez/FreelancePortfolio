@@ -9,7 +9,7 @@ const ModalButton = () => {
 
   return (  
     <div className='contact-modal'>
-      { modalVisible ? null : <button type="button" onClick={toggleModal} value="Open">Open</button> }
+      { modalVisible ? null : <button className='modal-btn' type="button" onClick={toggleModal} value="Open">Open</button> }
       <ContactModal toggle={toggleModal} className={modalVisible ? "show" : ""}/> 
       
     </div>
