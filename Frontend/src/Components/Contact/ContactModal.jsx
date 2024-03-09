@@ -79,7 +79,9 @@ const ContactModal = ({ toggle, className }) => {
               Budget Range:<p id="budget-value">{clientBudget}</p>
               <input type="range" name="budget" value={clientBudget} id="budget" onChange={(e) => setClientBudget(parseInt(e.target.value))} min="100" max="30000" step="50" />
             </div>
-            <button type='submit'>Submit</button>
+            <div className='submit-btn-container'>
+              <button type='submit'>Submit</button>
+            </div>
           </form>
         </div>
       </section>
